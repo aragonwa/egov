@@ -1,0 +1,116 @@
+extends includes/base
+block whichtheme
+  - var theme = 'default'
+block isfullwidth
+  - var colSize = 'col-md-12'
+block custom-style
+  style.
+    .bp-autocomplete-holder {
+        position: relative;
+    }
+    .bp-autocomplete-dropdown {
+        border-color: #ececec;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 2px;
+        width: 250px;
+        padding: 6px;
+        cursor: pointer;
+        z-index: 9999;
+        position: absolute;
+        /*top: 32px;
+        left: 0px;
+        */
+        margin-top: -6px;
+        background-color: #ffffff;
+    }
+
+    .bp-autocomplete-searching {
+        color: #bp-acacac;
+        font-size: 14px;
+    }
+
+    .bp-autocomplete-description {
+        font-size: 14px;
+    }
+
+    .bp-autocomplete-row {
+        padding: 5px;
+        color: #000000;
+        margin-bottom: 4px;
+
+    }
+
+    .bp-autocomplete-selected-row, .bp-autocomplete-row:hover {
+        background-color: lightblue;
+        color: #ffffff;
+    }
+
+    .bp-autocomplete-image-holder {
+        padding-top: 2px;
+        float: left;
+        margin-right: 10px;
+        margin-left: 5px;
+    }
+
+    .bp-autocomplete-image {
+        height: 34px;
+        width: 34px;
+        border-radius: 50%;
+        border-color: #ececec;
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    .bp-autocomplete-image-default {
+        /* Add your own default image here
+         background-image: url('/assets/default.png');
+        */
+        background-position: center;
+        background-size: contain;
+        height: 34px;
+        width: 34px;
+    }
+block sidebar
+block breadcrumb
+  // BREADCRUMB
+  include includes/breadcrumb
+block main-content
+  .row.addon-row.addon-row-attached
+    .col-sm-12
+      .page-header
+        h1 Autocomplete demo
+  .row.addon-row.addon-row-attached
+    .col-sm-12
+      #test
+block custom-js
+  script(src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js")
+  script(src="js/vendor/autocomplete.js")
+  script.
+    //Variable to hold autocomplete options
+    var keys;
+    //Load data
+    d3.json('http://data.kingcounty.gov/resource/mxn5-gsdz.json', function(error, jsonData) {
+      if (error) return console.warn(error);
+      keys=jsonData;
+      start();
+    });
+    //Call back for when user selects an option
+    function onSelect(d) {
+      //alert(d.link);
+      window.open(d.url, name='_self');
+    }
+    //Setup and render the autocomplete
+    function start() {
+      var mc = autocomplete(document.getElementById('test'))
+        .keys(keys)
+        .dataField('department')
+        .placeHolder("Start typing here")
+        //.width(960)
+        //.height(500)
+        .onSelected(onSelect)
+        .render();
+         $("#bp-ac").appendTo("#test");
+    }
+   
+
