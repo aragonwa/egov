@@ -5,71 +5,13 @@ block isfullwidth
   - var colSize = 'col-md-12'
 block custom-style
   style.
-    .bp-autocomplete-holder {
-        position: relative;
+    #typeaheadInput{
+      position:relative;
     }
-    .bp-autocomplete-dropdown {
-        border-color: #ececec;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 2px;
-        width: 250px;
-        padding: 6px;
-        cursor: pointer;
-        z-index: 9999;
-        position: absolute;
-        /*top: 32px;
-        left: 0px;
-        */
-        margin-top: -6px;
-        background-color: #ffffff;
-    }
-
-    .bp-autocomplete-searching {
-        color: #bp-acacac;
-        font-size: 14px;
-    }
-
-    .bp-autocomplete-description {
-        font-size: 14px;
-    }
-
-    .bp-autocomplete-row {
-        padding: 5px;
-        color: #000000;
-        margin-bottom: 4px;
-
-    }
-
-    .bp-autocomplete-selected-row, .bp-autocomplete-row:hover {
-        background-color: lightblue;
-        color: #ffffff;
-    }
-
-    .bp-autocomplete-image-holder {
-        padding-top: 2px;
-        float: left;
-        margin-right: 10px;
-        margin-left: 5px;
-    }
-
-    .bp-autocomplete-image {
-        height: 34px;
-        width: 34px;
-        border-radius: 50%;
-        border-color: #ececec;
-        border-style: solid;
-        border-width: 1px;
-    }
-
-    .bp-autocomplete-image-default {
-        /* Add your own default image here
-         background-image: url('/assets/default.png');
-        */
-        background-position: center;
-        background-size: contain;
-        height: 34px;
-        width: 34px;
+    #typeaheadResults{
+      position:absolute;
+      z-index: 1;
+      width:93%;
     }
 block sidebar
 block breadcrumb
@@ -82,35 +24,47 @@ block main-content
         h1 Autocomplete demo
   .row.addon-row.addon-row-attached
     .col-sm-12
-      #test
+      form
+        .form-group
+          .input-group#typeaheadInput
+            input.form-control(type="text" placeholder="Search" disabled)
+            //span.input-group-btn
+              //button.btn.btn-default(type="button") Go
+        .form-group#typeaheadResults
+          ul.list-group
 block custom-js
-  script(src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js")
-  script(src="js/vendor/autocomplete.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js")
   script.
-    //Variable to hold autocomplete options
-    var keys;
-    //Load data
-    d3.json('http://data.kingcounty.gov/resource/mxn5-gsdz.json', function(error, jsonData) {
-      if (error) return console.warn(error);
-      keys=jsonData;
-      start();
+    $.getJSON('https://data.kingcounty.gov/resource/fyug-m7sc.json', function(data){
+      loadTypeahead(data);
     });
-    //Call back for when user selects an option
-    function onSelect(d) {
-      //alert(d.link);
-      window.open(d.url, name='_self');
-    }
-    //Setup and render the autocomplete
-    function start() {
-      var mc = autocomplete(document.getElementById('test'))
-        .keys(keys)
-        .dataField('department')
-        .placeHolder("Start typing here")
-        //.width(960)
-        //.height(500)
-        .onSelected(onSelect)
-        .render();
-         $("#bp-ac").appendTo("#test");
-    }
-   
 
+    function loadTypeahead(data){
+      $input = $('#typeaheadInput input');
+      $results = $('#typeaheadResults');
+
+      $input.removeAttr('disabled');
+
+      $input.keyup(function() {
+          $results.html('');
+          var filteredData = _.filter(data, function(val){ 
+              if(val.task.toLowerCase().indexOf($input.val().toLowerCase()) > -1) {
+                return val;
+              }
+          });
+          $.each(filteredData, function(index, value){
+            $results.append(listItemTemplate(value.task,value.link));
+          });
+
+          $results.find('a').click(function() {
+            $input.val(this.innerHTML);
+            $results.html('');
+          });
+      });
+    }
+
+    function listItemTemplate(text,link){
+      var formatedLink;
+      formatedLink = '<a class="list-group-item" href="'+ link +'">'+ text +'</a>';
+      return formatedLink;
+    }

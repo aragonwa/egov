@@ -6,8 +6,21 @@
         small Sub header
 .row.addon-row.addon-row-attached
   .col-sm-12
+    p 
+      a(href='http://www.kingcounty.gov') Download link 
+      span.fa.fa-download
     p
       | After re-election by the largest margin ever in a race for King County’s top office, Executive Constantine outlined the accomplishments of the past year, and the past four years, that provide the foundation for the work that lies ahead.
+      a(href='#') Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+      | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+      a(href='#') Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+      | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+      a(href='#') Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+      | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+      a(href='#') Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+      | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+      a(href='#') Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+      | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 .row.addon-row.addon-row-attached
   .col-sm-12
     // Main jumbotron for a primary marketing message or call to action 
@@ -140,6 +153,9 @@
           a.list-group-item.list-group-item-info(href='#') Morbi leo risus
           a.list-group-item.list-group-item-warning(href='#') Porta ac consectetur ac
           a.list-group-item.list-group-item-danger(href='#') Vestibulum at eros
+          a.list-group-item.list-group-item-inverse(href='#') Porta ac consectetur ac
+          a.list-group-item.list-group-item-default(href='#') Vestibulum at eros
+          a.list-group-item.list-group-item-primary(href='#') Dapibus ac facilisis in
       .col-sm-4
         .list-group
           a.list-group-item.active(href='#')
@@ -289,6 +305,109 @@
             td Column content
             td Column content
             td Column content
+    .page-header
+      h1 Accordian
+    div#accordion.panel-group(role='tablist', aria-multiselectable='true')
+      div.panel.panel-default
+        div#headingOne.panel-heading(role='tab')
+          h4.panel-title
+            a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+              | Collapsible Group Item #1
+        div#collapseOne.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
+          div.panel-body
+            | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      div.panel.panel-default
+        div#headingTwo.panel-heading(role='tab')
+          h4.panel-title
+            a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
+              | Collapsible Group Item #2
+        div#collapseTwo.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
+          div.panel-body
+            | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      div.panel.panel-default
+        div#headingThree.panel-heading(role='tab')
+          h4.panel-title
+            a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
+              | Collapsible Group Item #3
+        div#collapseThree.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingThree')
+          div.panel-body
+            | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+    .page-header
+      h1 Modal
+      button.btn.btn-primary.btn-lg(type='button', data-toggle='modal', data-target='#myModal')
+        | Launch demo modal
+      // Modal
+      #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal')
+                span(aria-hidden='true') ×
+                span.sr-only Close
+              h4#myModalLabel.modal-title Modal title
+            .modal-body
+              h4 Text in a modal
+              p Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              h4 Popover in a modal
+              p
+                | This
+                a.btn.btn-default.popover-test(href='#', role='button', title='', data-content='And here"s some amazing content. It"s very engaging. right?', data-original-title='A Title') button
+                | should trigger a popover on click.
+              h4 Tooltips in a modal
+              p
+                a.tooltip-test(href='#', title='', data-original-title='Tooltip') This link
+                | and
+                a.tooltip-test(href='#', title='', data-original-title='Tooltip') that link
+                | should have tooltips on hover.
+              hr
+              h4 Overflowing text to show scroll behavior
+              p
+                | Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+              p
+                | Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+              p
+                | Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+              p
+                | Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+              p
+                | Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+              p
+                | Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+              p
+                | Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+              p
+                | Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+              p
+                | Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+            .modal-footer
+              button.btn.btn-default(type='button', data-dismiss='modal') Close
+              button.btn.btn-primary(type='button') Save changes
+
+    .page-header
+      h1 Tabs
+    div(role='tabpanel')
+      // Nav tabs
+      ul.nav.nav-tabs(role='tablist')
+        li.active(role='presentation')
+          a(href='#home', aria-controls='home', role='tab', data-toggle='tab') Home
+        li(role='presentation')
+          a(href='#profile', aria-controls='profile', role='tab', data-toggle='tab') Profile
+        li(role='presentation')
+          a(href='#messages', aria-controls='messages', role='tab', data-toggle='tab') Messages
+        li(role='presentation')
+          a(href='#settings', aria-controls='settings', role='tab', data-toggle='tab') Settings
+      // Tab panes
+      div.tab-content
+        div#home.tab-pane.active(role='tabpanel')
+          p First tab: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+        div#profile.tab-pane(role='tabpanel')
+          p Second tab: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+        div#messages.tab-pane(role='tabpanel')
+          p Third tab: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+        div#settings.tab-pane(role='tabpanel')
+          p Fourth tab: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+        
     .page-header
       h1 Forms
     form(role='form')

@@ -1,51 +1,106 @@
 /*
  * Author: King County Web Team
- * Date: 2014-10-10 
+ * Date: 2015-01-05 
  * Description: King County JS file
  */
 $(document).ready(function () {
-//Footer collapse menus
-if($('#nav-xs').css('display') == 'none'){
-   $('#footer-nav .col-sm-4 ul').collapse('show');
-}
-else {
-    $('#footer-nav .col-sm-4 ul').collapse('hide');
-}
-$('#footer-nav .col-sm-4 h4').each(function( index ){
-    $(this).click(function(event){
-        event.preventDefault();
-        if($('#nav-xs').css('display') == 'block') {
-            //check ie8
-            if (!Modernizr.mq('only all')) {
-                $(this).next().toggleClass('collapse');
+var addThis = function($) {
+
+    function addClickEvent(element, eventType) {
+        $(element).click(function (event) {
+            event.preventDefault();
+            var pathname = $(location).attr('href');
+            var left = ($(window).width() / 2) - (700 / 2);
+            var top = ($(window).height() / 2) - (325 / 2);
+            try {
+                window.open('http://api.addthis.com/oexchange/0.8/forward/'+ eventType +'/offer?url=' + pathname, eventType +' popup', 'scrollbars=no, height=325, width=700, top=' + top + ', left=' + left);
+            }
+            catch (e) {
+                window.open('http://api.addthis.com/oexchange/0.8/forward/'+ eventType +'/offer?url=' + pathname, eventType + 'popup');
+            }
+            return false;
+        });
+    }
+    function addClickPrintEvent(element){
+        $(element).click(function (event) {
+            event.preventDefault();
+            var loc = encodeURI(window.location);
+            window.open(loc + '?print=1', '_self');
+            return false;
+        });
+    }
+    function init(){
+        addClickEvent('a#facebook-share-button', 'facebook');
+        addClickEvent('a#twitter-share-button', 'twitter');
+        addClickEvent('a#email-share-button', 'email');
+        addClickPrintEvent('a#print-share-button');
+    }
+
+    return {
+        init: init
+    };
+}(jQuery);
+
+addThis.init();
+(function ($) {
+  'use strict';
+
+  if($('#nav-xs').css('display') == 'none'){
+     $('#footer-nav .col-sm-4 ul').collapse('show');
+  }
+  else {
+      $('#footer-nav .col-sm-4 ul').collapse('hide');
+  }
+  $('#footer-nav .col-sm-4 h4').each(function( index ){
+      $(this).click(function(event){
+          event.preventDefault();
+          if($('#nav-xs').css('display') == 'block') {
+              //check ie8
+              if (!Modernizr.mq('only all')) {
+                  $(this).next().toggleClass('collapse');
+              }
+              else {
+                  $(this).next().collapse('toggle');
+              }
+              $(this).find('i').toggleClass('fa-minus').toggleClass('fa-plus');
+          }
+      });
+  });
+}(jQuery));
+//Delay on nav dropdown menu
+var dropdownMenuDelay = function($) {
+
+    var dropdownEl = 'ul.nav li.dropdown';
+    var dropdownElMenu = 'ul.dropdown-menu';
+
+    function toggleClass (hoverState, el) {
+        var $this = el.children(dropdownElMenu);
+        var timer = $this.data('timer') || 0;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            if(hoverState === 'enter') {
+                $this.addClass('show');
             }
             else {
-                $(this).next().collapse('toggle');
+                $this.removeClass('show');
             }
-            $(this).find('i').toggleClass('fa-minus').toggleClass('fa-plus');
-        }
-    });
-});
-//Delay on nav dropdown menu
-$('ul.nav li.dropdown').hover(
-function () {
-    var $this = $(this).children('ul.dropdown-menu');
-    var timer = $this.data('timer') || 0;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        $this.addClass('show');
-    }, 250); // 2000 is in mil sec eq to 2 sec.
-    $this.data('timer', timer);
-},
-function () {
-    var $this = $(this).children('ul.dropdown-menu');
-    var timer = $this.data('timer') || 0;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        $this.removeClass('show');
-    }, 250);
-    $this.data('timer', timer);
-});
+        }, 250); // 2000 is in mil sec eq to 2 sec.
+        $this.data('timer', timer);
+    }
+    function init() {
+        $(dropdownEl).hover(
+            function(){toggleClass('enter', $(this));},
+            function(){toggleClass('leave', $(this));}
+        );
+    }
+    return {
+        init:init
+    };
+}(jQuery);
+
+dropdownMenuDelay.init();
+
+
 //Google Analytics call
 $.getScript('/js/vendor/kc-analytics.js', function(){});
 
@@ -112,7 +167,7 @@ else {
     });
 }
 function is_touch_device() {
-    return 'ontouchstart' in window || 'onmsgesturechange' in window; 
+    return 'ontouchstart' in window || 'onmsgesturechange' in window;
 }
 // Force touch screens to remove the menu when touching body of page
 $('#main-content').click(function () {
@@ -172,56 +227,7 @@ unfixed: function () {
 dontSetWidth: false
 });
 
-/****
-* Set up for addthis sharing button
-* Need King County PubID to gather stats http://support.addthis.com/customer/portal/articles/381265-addthis-sharing-endpoints#twitter
-****/
 
-$('a#facebook-share-button').click(function (event) {
-    event.preventDefault();
-    var pathname = $(location).attr('href');
-    var left = ($(window).width() / 2) - (700 / 2);
-    var top = ($(window).height() / 2) - (325 / 2);
-    try {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/facebook/offer?url=' + pathname, 'Facebook popup', 'scrollbars=no, height=325, width=700, top=' + top + ', left=' + left);
-    }
-    catch (e) {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/facebook/offer?url=' + pathname, 'Facebookpopup');
-    }
-    return false;
-});
-$('a#twitter-share-button').click(function (event) {
-    event.preventDefault();
-    var pathname = $(location).attr('href');
-    var left = ($(window).width() / 2) - (700 / 2);
-    var top = ($(window).height() / 2) - (325 / 2);
-    try {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/twitter/offer?url=' + pathname, 'Twitter popup', 'scrollbars=no, height=325, width=700, top=' + top + ', left=' + left);
-    }
-    catch (e) {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/twitter/offer?url=' + pathname, 'Twitterpopup');
-    }
-    return false;
-});
-$('a#email-share-button').click(function (event) {
-    event.preventDefault();
-    var pathname = $(location).attr('href');
-    var left = ($(window).width() / 2) - (700 / 2);
-    var top = ($(window).height() / 2) - (325 / 2);
-    try {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/email/offer?url=' + pathname, 'Email popup', 'scrollbars=no,height=525,width=700,top=' + top + ',left=' + left);
-    }
-    catch (e) {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/email/offer?url=' + pathname, 'Emailpopup');
-    }
-    return false;
-});
-$('a#print-share-button').click(function (event) {
-    event.preventDefault();
-    var loc = encodeURI(window.location);
-    window.open(loc + '?print=1', '_self');
-    return false;
-});
 //http://getbootstrap.com/getting-started/#support-ie10-width
 if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
     var msViewportStyle = document.createElement('style');
@@ -314,7 +320,7 @@ $(window).resize(function() {
           var currentDate = new Date();
 
           if (date >= currentDate && counter < settings.numItems) {
-            output+='<div class=\"media\"><div class="pull-left">';
+            output+='<div class=\"media\"><div class="media-left">';
             var dateDay = date.getDate();
             output += '<div class=\"date-day\">' + dateDay + '</div> ';
             output += '<div class=\"date-month\">' + monthFormat(date.getMonth()) + '</div>';
@@ -363,7 +369,7 @@ $(window).resize(function() {
         });
         //If there are no active events output error message
         if (counter === 0) {
-          output += '<div class=\"media\"><div class="pull-left">';
+          output += '<div class=\"media\"><div class="media-left">';
           output += '<div class=\"date-day\"><i class="fa fa-info-circle"></i></div> ';
           output += '<div class=\"date-month\"></div></div>';
           output += '<div class=\"media-body\">';
@@ -493,7 +499,7 @@ $(window).resize(function() {
         month = month.substring(0,3);
         var day = dateStrSub.split(' ')[1];
         //Start HTML string
-        output += '<div class="media"><div class="pull-left">';
+        output += '<div class="media"><div class="media-left">';
         //Get date in Date format
         //Get day
         output +='<div class="date-day">'+ day + '</div>';
@@ -523,6 +529,11 @@ $(window).resize(function() {
     }
   };
 })( jQuery );
+(function() {
+var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+sz.src = '//us2.siteimprove.com/js/siteanalyze_1306788.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+})();
 /*jshint browser:true */
 /*!
 * FitVids 1.1

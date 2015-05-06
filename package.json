@@ -1,0 +1,28 @@
+{
+  "name": "bs3-upgrade",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-less": "~0.11.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-jade": "~0.11.0",
+    "grunt-styleguide": "~0.2.15",
+    "grunt-patternprimer": "~0.1.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-string-replace": "~0.2.7",
+    "grunt-text-replace": "~0.3.11",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-ftp-deploy": "~0.1.3",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-copy": "~0.6.0",
+    "grunt-autoprefixer": "~2.2.0",
+    "grunt-phantom": "~0.2.1",
+    "html-diff": "0.0.4",
+    "grunt-webdriver": "~0.4.8",
+    "grunt-contrib-qunit": "~0.5.2",
+    "grunt-contrib-coffee": "~0.13.0",
+    "grunt-newer": "~1.1.0"
+  }
+}

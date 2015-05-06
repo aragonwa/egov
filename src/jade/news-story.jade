@@ -12,13 +12,26 @@ block breadcrumb
 block custom-js
   script.
     $('#myNews').eventsCalendar({calNum:"69gk-ky9a"});
+block custom-style
+  style.
+    .thumbnail.with-caption {
+      display: inline-block;
+      background-color:transparent;
+      border:none;
+    }
+    .thumbnail.with-caption p {
+      margin: 0;
+      padding-top: 0.5em;
+      font-style: italic;
+      color:#413e39;
+    }
 block main-content
   include includes/news-tool-header
   article
     .row.addon-row.addon-row-attached
       .col-sm-12
         header#nt-title
-          h1
+          h1 
             | King County preserves 43,000 acres of White River Forest
           h2
             | Largest piece of unprotected forestland is twice the size of Bellevue
@@ -33,21 +46,29 @@ block main-content
       .col-sm-12
         h4.nt-label
           span.label.label-primary Story
-        .nt-details-media.col-sm-6.col-xs-12
-          figure
-            img.img-responsive(src='img/rotator-flood2.jpg', alt='This is a picture')
+        .clearfix
+        .nt-details-media.col-sm-6.col-xs-12.pull-right
+          p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+          ul
+            li Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.
+            li Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.
+            li Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.
+            li Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
+          figure.thumbnail.with-caption
+            img(src='img/rotator-flood2.jpg', alt='This is a picture')
             figcaption
               p
                 | White River Forest,
                 br
                 | Photographer: Name
-          figure
-            img.img-responsive(src='http://www.vetprofessionals.com/catprofessional/images/home-cat.jpg', alt='This is a picture')
+          figure.thumbnail.with-caption
+            img(src='http://www.vetprofessionals.com/catprofessional/images/home-cat.jpg', alt='This is a picture')
             figcaption
               p
                 | White River Forest,
                 br
                 | Photographer: Name
+
         p
           | King County Executive Dow Constantine reached an agreement with the Hancock Timber Resource Group to permanently protect 43,000 acres of the White River Forest from development.
         p
@@ -68,6 +89,22 @@ block main-content
           li Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.
           li Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.
         p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+        .clearfix
+        .nt-details-media.col-sm-6.col-xs-12.pull-right
+          figure.thumbnail.with-caption
+            img(src='img/rotator-flood2.jpg', alt='This is a picture')
+            figcaption
+              p
+                | White River Forest,
+                br
+                | Photographer: Name
+          figure
+            img(src='http://www.vetprofessionals.com/catprofessional/images/home-cat.jpg', alt='This is a picture')
+            figcaption.thumbnail.with-caption
+              p
+                | White River Forest,
+                br
+                | Photographer: Name
         p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
         p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
         p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.

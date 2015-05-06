@@ -14,15 +14,15 @@ html.no-js(lang="en")
       css.setAttribute('href', '!{rootPrefix}css/ie-only.css');
       document.getElementsByTagName('head')[0].appendChild(css);
       }
-    a.sr-only(href="#main-content-sr") Skip to main content
+    a.sr-only.sr-only-focusable(href="#main-content-sr") Skip to main content
     // GLOBAL ALERT GOES HERE
     header.hidden-print
       include nav/nav
     include main
     include footer
     // Javascript files
-    script(src= httpPrefix + '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
-    script(src= httpPrefix +'//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js')
+    script(src= httpPrefix + '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+    script(src= httpPrefix +'//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
     script(src= rootPrefix + 'js/main.js')
     //set the background image
     script.

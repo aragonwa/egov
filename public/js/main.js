@@ -1,265 +1,181 @@
 /*
  * Author: King County Web Team
- * Date: 2014-10-09 
+ * Date: 2015-05-06 
  * Description: King County JS file
  */
-$(document).ready(function () {
-  $.getScript('js/vendor/kc-analytics.js', function(){});
-//Footer collapse menus
-if($('#nav-xs').css('display') == 'none'){
-   $('#footer-nav .col-sm-4 ul').collapse('show');
-}
-else {
-    $('#footer-nav .col-sm-4 ul').collapse('hide');
-}
-$('#footer-nav .col-sm-4 h4').each(function( index ){
-    $(this).click(function(event){
-        event.preventDefault();
-        if($('#nav-xs').css('display') == 'block') {
-            //check ie8
-            if (!Modernizr.mq('only all')) {
-                $(this).next().toggleClass('collapse');
+var addThis = function($) {
+    function addClickEvent(element, eventType) {
+        $(element).click(function (event) {
+            event.preventDefault();
+            var pathname = $(location).attr('href');
+            var left = ($(window).width() / 2) - (700 / 2);
+            var top = ($(window).height() / 2) - (325 / 2);
+            try {
+                window.open('http://api.addthis.com/oexchange/0.8/forward/'+ eventType +'/offer?pubid=ra-547e0fb955b81113&url=' + pathname, eventType +' popup', 'scrollbars=no, height=325, width=700, top=' + top + ', left=' + left);
             }
-            else {
-                $(this).next().collapse('toggle');
+            catch (e) {
+                window.open('http://api.addthis.com/oexchange/0.8/forward/'+ eventType +'/offer?pubid=ra-547e0fb955b81113&url=' + pathname, eventType + 'popup');
             }
-            $(this).find('i').toggleClass('fa-minus').toggleClass('fa-plus');
-        }
-    });
-});
-//Delay on nav dropdown menu
-$('ul.nav li.dropdown').hover(
-function () {
-    var $this = $(this).children('ul.dropdown-menu');
-    var timer = $this.data('timer') || 0;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        $this.addClass('show');
-    }, 250); // 2000 is in mil sec eq to 2 sec.
-    $this.data('timer', timer);
-},
-function () {
-    var $this = $(this).children('ul.dropdown-menu');
-    var timer = $this.data('timer') || 0;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        $this.removeClass('show');
-    }, 250);
-    $this.data('timer', timer);
-});
-$('[data-kccomponent]').each(function () {
-    var $this = $(this),
-    url = $this.data('kccomponent') + '.aspx?a=true';
-    $this.html('');
+            return false;
+        });
+    }
+    function addClickPrintEvent(element){
+        $(element).click(function (event) {
+            event.preventDefault();
+            var loc = encodeURI(window.location);
+            window.open(loc + '?print=1', '_self');
+            return false;
+        });
+    }
+    function init(){
+        addClickEvent('a#facebook-share-button', 'facebook');
+        addClickEvent('a#twitter-share-button', 'twitter');
+        addClickEvent('a#email-share-button', 'email');
+        addClickPrintEvent('a#print-share-button');
+    }
 
-    $.ajax({
-        type: 'GET',
-        url: url
-    }).done(function (data) {
-        $this.append(data);
-        //for datedlist popovers          
-        $('.popoveritem').popover();
-    });
-});
-/* Sidemenu initialize http://getbootstrap.com/examples/offcanvas/*/
-$('[data-toggle=offcanvas]').click(function() {
-    $('.row-offcanvas').toggleClass('active');
-});
-//Hide links in global navigation dropdown menu
-$('.hidden-link').hide();
-$('a.toggle-hidden-links').click(function () {
-    if ($(this).hasClass('open')) {
-        $('.hidden-link').hide('fast');
-        $(this).removeClass('open');
-    }
-    else {
-        $('.hidden-link').hide('fast');
-        $('a.toggle-hidden-links').removeClass('open');
-        $(this).closest('ul').children('.hidden-link').show('fast');
-        $(this).addClass('open');
-    }
-});
-//Main-content fade upon hovering over main nav
-//Update 7/25/2013: Added code to test for touch device.
-if (!is_touch_device()) {
-    $('header .navbar .dropdown-toggle').hover(
-        function (e) {
-            $('#main-content').stop(true).fadeTo(300, 0.3);
-            $('#home-content').stop(true).fadeTo(300, 0.3);
-        },
-        function (e) {
-            $('#main-content').stop(true).fadeTo(300, 1);
-            $('#home-content').stop(true).fadeTo(300, 1);
-        }
-        );
-    $('header .dropdown-menu').hover(
-        function (e) {
-            $('#main-content').stop(true).fadeTo(300, 0.3);
-            $('#home-content').stop(true).fadeTo(300, 0.3);
-        },
-        function (e) {
-            $('#main-content').stop(true).fadeTo(300, 1);
-            $('#home-content').stop(true).fadeTo(300, 1);
-        }
-    );
-}
-else {
-    $('.navbar  a.dropdown-toggle').click(function (event) {
-        event.preventDefault();
-        $('.dropdown-toggle').removeClass('disabled');
-    });
-}
-function is_touch_device() {
-    return 'ontouchstart' in window || 'onmsgesturechange' in window; 
-}
-// Force touch screens to remove the menu when touching body of page
-$('#main-content').click(function () {
-    $('.dropdown-toggle').removeClass('show');
-});
-/* Prevent Safari opening links when viewing as a Mobile App */
-(function (a, b, c) {
-    if (c in b && b[c]) {
-        var d, e = a.location,
-            f = /^(a|html)$/i;
-        a.addEventListener('click', function (a) {
-            d = a.target;
-            while (!f.test(d.nodeName)) d = d.parentNode
-            "href" in d && (d.href.indexOf("http") || ~d.href.indexOf(e.host)) && (a.preventDefault(), e.href = d.href);
-        }, !1);
-    }
-})(document, window.navigator, 'standalone');
+    return {
+        init: init
+    };
+}(jQuery);
 
-/* Prevent click event on empty a href tags */
-$('a[href="#"]').click(function (event) {
-    event.preventDefault();
-});
-
-// Yamm menu setup
-$(document).on('click', '.yamm .dropdown-menu', function(e) {
-    e.stopPropagation();
-});
-//Sidebar nav indenting
-//Only works up to four levels deep
-//Also includes fix for active item
-$('#sidebar .panel .list-group.collapsed').find('a.list-group-item').each(function () {
-    $(this).css('padding-left', '+=10');
-});
-$('#sidebar .panel .list-group.collapsed > .list-group.collapsed').find('a.list-group-item').each(function () {
-    $(this).css('padding-left', '+=10');
-});
-$('#sidebar .panel .list-group.collapsed >.list-group.collapsed > .list-group.collapsed').find('a.list-group-item').each(function () {
-    $(this).css('padding-left', '+=10');
-});
- $('#sidebar .panel .list-group.collapsed > .list-group.collapsed > .list-group.collapsed > .list-group.collapsed').find('a.list-group-item').each(function () {
-    $(this).css('padding-left', '+=10');
-});
-var activeSidebarItem = $('.sidebar-offcanvas .list-group-item.active');
-$(activeSidebarItem).each(function( index) {
-  $(this).css('padding-left', '-=6');
-});
-$('#sticky-footer').scrollToFixed( {
-bottom: 0, 
-limit: $('#footer-nav-limit').offset().top,
-fixed: function () {
-    $(this).css('display', 'block');
-    $(this).css('width', '100%');
-},
-unfixed: function () {
-   $(this).css('display', 'none');
-},
-dontSetWidth: false
-});
-
-/****
-* Set up for addthis sharing button
-* Need King County PubID to gather stats http://support.addthis.com/customer/portal/articles/381265-addthis-sharing-endpoints#twitter
-****/
-
-$('a#facebook-share-button').click(function (event) {
-    event.preventDefault();
-    var pathname = $(location).attr('href');
-    var left = ($(window).width() / 2) - (700 / 2);
-    var top = ($(window).height() / 2) - (325 / 2);
-    try {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/facebook/offer?url=' + pathname, 'Facebook popup', 'scrollbars=no, height=325, width=700, top=' + top + ', left=' + left);
-    }
-    catch (e) {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/facebook/offer?url=' + pathname, 'Facebookpopup');
-    }
-    return false;
-});
-$('a#twitter-share-button').click(function (event) {
-    event.preventDefault();
-    var pathname = $(location).attr('href');
-    var left = ($(window).width() / 2) - (700 / 2);
-    var top = ($(window).height() / 2) - (325 / 2);
-    try {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/twitter/offer?url=' + pathname, 'Twitter popup', 'scrollbars=no, height=325, width=700, top=' + top + ', left=' + left);
-    }
-    catch (e) {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/twitter/offer?url=' + pathname, 'Twitterpopup');
-    }
-    return false;
-});
-$('a#email-share-button').click(function (event) {
-    event.preventDefault();
-    var pathname = $(location).attr('href');
-    var left = ($(window).width() / 2) - (700 / 2);
-    var top = ($(window).height() / 2) - (325 / 2);
-    try {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/email/offer?url=' + pathname, 'Email popup', 'scrollbars=no,height=525,width=700,top=' + top + ',left=' + left);
-    }
-    catch (e) {
-        window.open('!{httpPrefix}//api.addthis.com/oexchange/0.8/forward/email/offer?url=' + pathname, 'Emailpopup');
-    }
-    return false;
-});
-$('a#print-share-button').click(function (event) {
-    event.preventDefault();
-    var loc = encodeURI(window.location);
-    window.open(loc + '?print=1', '_self');
-    return false;
-});
-//http://getbootstrap.com/getting-started/#support-ie10-width
-if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-    var msViewportStyle = document.createElement('style');
-    msViewportStyle.appendChild(
-        document.createTextNode(
-        '@-ms-viewport{width:auto!important}'
-        )
-    );
-    document.querySelector('head').appendChild(msViewportStyle);
-}
-//Initialize Fitvids
-$('#main-content').fitVids();
-
-
-});
+(function ($) {
+    addThis.init();
+}(jQuery));
 //Funciton to choose Background on body
 var xsSet = false;
 var lgSet = false;
 function chooseBG(imgMobile, imgDesktop) {
-    if(imgMobile && ($('#nav-xs').css("display") == "block") && xsSet == false){
-        $('#mobile-bg').attr("src", imgMobile);
+    if(imgMobile && ($('#nav-xs').css('display') === 'block') && xsSet === false){
+        $('#mobile-bg').attr('src', imgMobile);
         xsSet = true;
     }
-    if(imgDesktop && ($('#nav-lg').css("display") == "block" || ($('#nav-sm').css("display") == "block")) && lgSet == false){
-        $('body').css("background-image", "url('" + imgDesktop + "')");
+    if(imgDesktop && ($('#nav-lg').css('display') === 'block' || ($('#nav-sm').css('display') === 'block')) && lgSet === false){
+        $('body').css('background-image', 'url("' + imgDesktop + '")');
         lgSet = true;
     }
 }
+$(function () {
+    $('[data-kccomponent]').each(function () {
+        var $this = $(this),
+        url = $this.data('kccomponent') + '.aspx?a=true';
+        $this.html('');
+
+        $.ajax({
+            type: 'GET',
+            url: url
+        }).done(function (data) {
+            $this.append(data);
+            //for datedlist popovers          
+            $('.popoveritem').popover();
+        });
+    });
+});
 $(window).resize(function() {
     //Collapse window on resize
-    if($('#nav-xs').css('display') == 'none'){
+    if($('#nav-xs').css('display') === 'none'){
        $('#footer-nav .col-sm-4 ul').collapse('show');
     }
     else {
         $('#footer-nav .col-sm-4 ul').collapse('hide');
     }
 }).resize(); // trigger resize handlers
+(function ($) {
+  'use strict';
+
+  if($('#nav-xs').css('display') === 'none'){
+     $('#footer-nav .col-sm-4 ul').collapse('show');
+  }
+  else {
+      $('#footer-nav .col-sm-4 ul').collapse('hide');
+  }
+  $('#footer-nav .col-sm-4 h4').each(function( index ){
+      $(this).click(function(event){
+          event.preventDefault();
+          if($('#nav-xs').css('display') === 'block') {
+              //check ie8
+              if (!Modernizr.mq('only all')) {
+                  $(this).next().toggleClass('collapse');
+              }
+              else {
+                  $(this).next().collapse('toggle');
+              }
+              $(this).find('i').toggleClass('fa-minus').toggleClass('fa-plus');
+          }
+      });
+  });
+}(jQuery));
+var kcGAEvents = (function($){
+
+  function gaEventBinder(element){
+    $(element).each(function(){
+      var selectionText;
+      var selectionHeaderText;
+      var elementParentHeader;
+      var size;
+      var sendText;
+      //Set size
+      if(element.indexOf('#navbar-full') >= 0){
+        size = 'Large Header Navigation';
+      } else if(element.indexOf('#nav-sm') >= 0){
+        size = 'Small Header Navigation';
+      } else if(element.indexOf('#nav-xs') >= 0){
+        size = 'XSmall Header Navigation';
+      } else {
+        size = 'Footer Navigation';
+      }
+      //Set Parent Selector
+      if(size === 'Footer Navigation'){
+        elementParentHeader = $(this).parents('.list-unstyled').siblings('h4');
+      } else {
+        elementParentHeader = $(this).parents('.dropdown-menu').siblings('a.nav-header');
+      }
+      $(this).click(function(e){
+        //e.preventDefault();
+        //Set header
+        selectionHeaderText = elementParentHeader.text();
+        if(selectionHeaderText === '' && size === 'Small Header Navigation' ){
+          selectionHeaderText = "Search";
+        }
+        //Set text
+        if($(this).html() === '<i class="fa fa-ellipsis-h"></i>'){
+          selectionText = 'See more ellipsis';
+        } else {
+          selectionText = $(this).text();
+        }
+        //Send text to send
+        if(size === 'XSmall Header Navigation'){
+          sendText = selectionText;
+        }
+        else {
+          sendText = selectionHeaderText +': '+selectionText;
+        }
+        //console.log(size, sendText); //for testing
+        ga('send', 'event', size, 'click', sendText);
+      });
+    });
+  }
+  function init() {
+    //Large
+    gaEventBinder('#navbar-full .list-unstyled a');
+    //Small
+    gaEventBinder('#nav-sm .list-unstyled a');
+    //XSmall
+    gaEventBinder('#nav-xs .nav.navbar-nav li a');
+    //Footer
+    gaEventBinder('#footer-nav .list-unstyled a');
+  }
+  return {
+    init:init
+  };
+})(jQuery);
+
+$(function () {
+    kcGAEvents.init();
+});
 (function( $ ){
 
-  $.fn.eventsCalendar = function( options ) {  
+  $.fn.eventsCalendar = function( options ) {
 
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
@@ -279,7 +195,7 @@ $(window).resize(function() {
       $this.append('<i class="fa fa-spinner fa-spin fa-4x"></i>');
 
       //Build URL String
-      var dataURL = 'http://data.kingcounty.gov/resource/' + settings.calNum + 
+      var dataURL = 'http://data.kingcounty.gov/resource/' + settings.calNum +
                     '.json?';
       if(settings.filter){
         dataURL += '&$q=' + settings.filter;
@@ -300,7 +216,7 @@ $(window).resize(function() {
       function parseData(data) {
         var counter = 0;
 
-        $this.addClass("calendar-events-list");
+        $this.addClass('calendar-events-list');
 
         var output = '<h2><span class=\"fa-stack\"><i class=\"fa fa-square fa-stack-2x\"></i><i class=\"fa ' + settings.titleIcon + ' fa-stack-1x fa-inverse\"></i> </span> '+ settings.title +'</h2>';
 
@@ -308,11 +224,11 @@ $(window).resize(function() {
           
           var date = new Date(0);
 
-          date.setUTCSeconds(item.start_time);
+          date.setUTCSeconds(item.end_time);//Updated this line on 2/17
           var currentDate = new Date();
 
           if (date >= currentDate && counter < settings.numItems) {
-            output+='<div class=\"media\"><div class="pull-left">';
+            output+='<div class=\"media\"><div class="media-left">';
             var dateDay = date.getDate();
             output += '<div class=\"date-day\">' + dateDay + '</div> ';
             output += '<div class=\"date-month\">' + monthFormat(date.getMonth()) + '</div>';
@@ -328,7 +244,7 @@ $(window).resize(function() {
                 city = 'Not available';
                 address = 'Not available';
             }
-            if (item.location_name != undefined) {
+            if (item.location_name !== undefined) {
                 location = item.location_name;
             } else {
                 location = 'Not available';
@@ -341,27 +257,27 @@ $(window).resize(function() {
                 url = '\/about\/news\/events';
             }
 
-            output += '<div class=\"media-body\">'
+            output += '<div class=\"media-body\">';
             var eventName;
-            if(item.event_name.search('<') == 0){
+            if(item.event_name.search('<') === 0){
                 eventName = $(item.event_name).text();
             }
             else {
                 eventName = item.event_name;
             }
-            output += '<p><a class=\"pop\" id=\"popover' + i + '\"' + 'rel=\"popover\" data-animation=\"true\" data-html=\"true\" data-placement=\"top\" data-trigger=\"hover\" data-delay=\"0\"'; 
+            output += '<p><a class=\"pop\" id=\"popover' + i + '\"' + 'rel=\"popover\" data-animation=\"true\" data-html=\"true\" data-placement=\"top\" data-trigger=\"hover\" data-delay=\"0\"';
             output += 'data-content="' + popoverContent +'"';
             output += 'title=\"' + item.event_name +'"';
             output += 'href=\"'+ url +'"';
             output += '>' + eventName +'</a></p>';
             output += '</div></div>';//end media div
-            allpops.push("#popover" + i);
+            allpops.push('#popover' + i);
             counter += 1;
           }
         });
         //If there are no active events output error message
         if (counter === 0) {
-          output += '<div class=\"media\"><div class="pull-left">';
+          output += '<div class=\"media\"><div class="media-left">';
           output += '<div class=\"date-day\"><i class="fa fa-info-circle"></i></div> ';
           output += '<div class=\"date-month\"></div></div>';
           output += '<div class=\"media-body\">';
@@ -386,7 +302,7 @@ $(window).resize(function() {
           */
           xdr.onload = function () {
             var JSON = $.parseJSON(xdr.responseText);
-            if (JSON == null || typeof (JSON) == 'undefined') {
+            if (JSON === null || typeof (JSON) === 'undefined') {
                 JSON = $.parseJSON(data.firstChild.textContent);
             }
             successCallback(JSON);
@@ -414,10 +330,10 @@ $(window).resize(function() {
             },
             error: function () {
                 /* regular embed, last resort */
-                $this.addClass("calendar-events-list");
+                $this.addClass('calendar-events-list');
                 var output = '';
                 output += '<h2><span class=\"fa-stack\"><i class=\"fa fa-square fa-stack-2x\"></i><i class=\"fa '+ settings.titleIcon +' fa-stack-1x fa-inverse\"></i> </span> Events</h2>';
-                output ='<iframe width=\"100%\" height=\"425px\" src=\"https://data.kingcounty.gov/w/' + settings.calNum +'\"frameborder=\"0\" scrolling=\"no\"></iframe>';
+                output ='<iframe width=\"100%\" height=\"425px\" src=\"http://data.kingcounty.gov/w/' + settings.calNum +'\"frameborder=\"0\" scrolling=\"no\"></iframe>';
                 output += '<p class=\"all-events\"><a href=\"'+ settings.allItemsUrl+'\"><em>'+settings.allItemsUrl+'</em></a></p>';
                 $this.html(output);
             }
@@ -428,26 +344,26 @@ $(window).resize(function() {
     //Helper function for Events Calendar function
     function monthFormat(monthToFormat) {
       var month = [];
-      month[0] = "JAN";
-      month[1] = "FEB";
-      month[2] = "MAR";
-      month[3] = "APR";
-      month[4] = "MAY";
-      month[5] = "JUN";
-      month[6] = "JUL";
-      month[7] = "AUG";
-      month[8] = "SEP";
-      month[9] = "OCT";
-      month[10] = "NOV";
-      month[11] = "DEC";
+      month[0] = 'JAN';
+      month[1] = 'FEB';
+      month[2] = 'MAR';
+      month[3] = 'APR';
+      month[4] = 'MAY';
+      month[5] = 'JUN';
+      month[6] = 'JUL';
+      month[7] = 'AUG';
+      month[8] = 'SEP';
+      month[9] = 'OCT';
+      month[10] = 'NOV';
+      month[11] = 'DEC';
       var formatedMonth = month[monthToFormat];
       return formatedMonth;
     }
   };
 })( jQuery );
 (function( $ ){
-
-  $.fn.deliciousNewsFeed = function( options ) {  
+  'use strict';
+  $.fn.deliciousNewsFeed = function( options ) {
 
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
@@ -462,36 +378,25 @@ $(window).resize(function() {
 
     //Set global scope for instance
     var $this = this,
-        output = "",
         allpops = [];
-
-    return this.each(function() {
-      $this.append('<i class="fa fa-spinner fa-spin fa-4x"></i>');
-      var dataURL = settings.feedURL + '?count=' + settings.numItems;
-      $.ajax({
-        url: dataURL,
-        dataType: 'jsonp',
-        }).
-        success(function(data) {
-          parseData(data);
-        })
-    });
       
     function parseData(data) {
-      var counter = 0;
-      $this.addClass("news-feed");
-      $this.addClass("dated-news-feed");
+      $this.addClass('news-feed');
+      $this.addClass('dated-news-feed');
 
       var output = '<h2><span class=\"fa-stack\"><i class=\"fa fa-square fa-stack-2x\"></i><i class=\"fa ' + settings.titleIcon + ' fa-stack-1x fa-inverse\"></i> </span> '+ settings.title +'</h2>';
 
       $.each (data, function(i, item) {
+        if (item.d.split(': ')[1] === undefined) {
+          return;
+        }
         var dateWhole = item.d.split(': ');
         var dateStrSub = dateWhole[0];
         var month = dateStrSub.split(' ')[0].toUpperCase();
         month = month.substring(0,3);
         var day = dateStrSub.split(' ')[1];
         //Start HTML string
-        output += '<div class="media"><div class="pull-left">';
+        output += '<div class="media"><div class="media-left">';
         //Get date in Date format
         //Get day
         output +='<div class="date-day">'+ day + '</div>';
@@ -499,7 +404,7 @@ $(window).resize(function() {
         output +='<div class="date-month">'+ month + '</div>';
         output += '</div>';
         //Set content for popover
-        var popoverContent = 'Summary: '+ item.n;  
+        var popoverContent = 'Summary: '+ item.n;
         var titleStr = item.d;
         var titleParts = titleStr.split(': ');
         var titleStrSub = titleParts[1];
@@ -511,16 +416,431 @@ $(window).resize(function() {
         }
         //Wrap up
         output+='</div></div>';
-        allpops.push("#popover"+i)
+        allpops.push('#popover'+i);
       });
-      output+= '<p><a href="'+settings.allItemsUrl+'"><em>'+settings.allItemsText+'</em></a></p>'
+      output+= '<p><a href="'+settings.allItemsUrl+'"><em>'+settings.allItemsText+'</em></a></p>';
       $this.html(output);
-      $(allpops).each(function (index){
+      $(allpops).each(function (){
         $(allpops).popover();
       });
     }
+    function parseError() {
+      $this.addClass('news-feed');
+      $this.addClass('dated-news-feed');
+      var output = '<h2><span class=\"fa fa-exclamation-triangle fa-color-danger\"></i> </span> Oops...</h2>';
+      output += '<div class="media-body">';
+      output += '<p>Sorry, this list is temporarily unavailable.</p>';
+      output += '<p>Please go <a href="https://delicious.com/kingcounty">here</a> to see all King County news.</a>';
+      output += '</div>';
+      $this.html(output);
+    }
+    return this.each(function() {
+      $this.append('<i class="fa fa-spinner fa-spin fa-4x"></i>');
+      var dataURL = settings.feedURL + '?count=' + settings.numItems;
+      $.ajax({
+        url: dataURL,
+        dataType: 'jsonp',
+        timeout: 5000,
+      })
+      .success(function(data) {
+        parseData(data);
+      })
+      .error(function(){
+        parseError();
+      });
+    });
   };
 })( jQuery );
+
+$(function () {
+    //Main-content fade upon hovering over main nav
+    //Update 7/25/2013: Added code to test for touch device.
+    if (!is_touch_device()) {
+        $('header .navbar .dropdown-toggle').hover(
+            function (e) {
+                $('#main-content').stop(true).fadeTo(300, 0.3);
+                $('#home-content').stop(true).fadeTo(300, 0.3);
+            },
+            function (e) {
+                $('#main-content').stop(true).fadeTo(300, 1);
+                $('#home-content').stop(true).fadeTo(300, 1);
+            }
+            );
+        $('header .dropdown-menu').hover(
+            function (e) {
+                $('#main-content').stop(true).fadeTo(300, 0.3);
+                $('#home-content').stop(true).fadeTo(300, 0.3);
+            },
+            function (e) {
+                $('#main-content').stop(true).fadeTo(300, 1);
+                $('#home-content').stop(true).fadeTo(300, 1);
+            }
+        );
+    }
+    else {
+        $('.navbar  a.dropdown-toggle').click(function (event) {
+            event.preventDefault();
+            $('.dropdown-toggle').removeClass('disabled');
+        });
+    }
+    function is_touch_device() {
+        return 'ontouchstart' in window || 'onmsgesturechange' in window;
+    }
+    // Force touch screens to remove the menu when touching body of page
+    $('#main-content').click(function () {
+        $('.dropdown-toggle').removeClass('show');
+    });
+});
+//Delay on nav dropdown menu
+var dropdownMenuDelay = function($) {
+
+    var dropdownEl = 'ul.nav li.dropdown';
+    var dropdownElMenu = 'ul.dropdown-menu';
+
+    function toggleClass (hoverState, el) {
+        var $this = el.children(dropdownElMenu);
+        var timer = $this.data('timer') || 0;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            if(hoverState === 'enter') {
+                $this.addClass('show');
+            }
+            else {
+                $this.removeClass('show');
+            }
+        }, 250); // 2000 is in mil sec eq to 2 sec.
+        $this.data('timer', timer);
+    }
+    function init() {
+        $(dropdownEl).hover(
+            function(){toggleClass('enter', $(this));},
+            function(){toggleClass('leave', $(this));}
+        );
+    }
+    return {
+        init:init
+    };
+}(jQuery);
+$(function () {
+    dropdownMenuDelay.init();
+});
+
+var fakewaffle = ( function ( $, fakewaffle ) {
+    'use strict';
+
+    fakewaffle.responsiveTabs = function ( collapseDisplayed ) {
+
+        fakewaffle.currentPosition = 'tabs';
+
+        var tabGroups = $( '.nav-tabs.responsive, .nav-pills.responsive' );
+        var hidden    = '';
+        var visible   = '';
+        var activeTab = '';
+
+        if ( collapseDisplayed === undefined ) {
+            collapseDisplayed = [ 'xs', 'sm' ];
+        }
+
+        $.each( collapseDisplayed, function () {
+            hidden  += ' hidden-' + this;
+            visible += ' visible-' + this;
+        } );
+
+        $.each( tabGroups, function () {
+            var $tabGroup   = $( this );
+            var tabs        = $tabGroup.find( 'li a' );
+            var collapseDiv = $( '<div></div>', {
+                'class' : 'panel-group responsive' + visible,
+                'id'    : 'collapse-' + $tabGroup.attr( 'id' )
+            } );
+
+
+
+            $.each( tabs, function () {
+                var $this          = $( this );
+                var oldLinkClass   = $this.attr( 'class' ) === undefined ? '' : $this.attr( 'class' );
+                //var newLinkClass   = 'accordion-toggle';
+                var newLinkClass   = 'accordion-toggle collapsed';
+                var oldParentClass = $this.parent().attr( 'class' ) === undefined ? '' : $this.parent().attr( 'class' );
+                //var newParentClass = 'panel panel-default';
+                var newParentClass = 'panel panel-accordion-primary';
+                var newHash        = $this.get( 0 ).hash.replace( '#', 'collapse-' );
+
+                if ( oldLinkClass.length > 0 ) {
+                    newLinkClass += ' ' + oldLinkClass;
+                }
+
+                if ( oldParentClass.length > 0 ) {
+                    oldParentClass = oldParentClass.replace( /\bactive\b/g, '' );
+                    newParentClass += ' ' + oldParentClass;
+                    newParentClass = newParentClass.replace( /\s{2,}/g, ' ' );
+                    newParentClass = newParentClass.replace( /^\s+|\s+$/g, '' );
+                }
+
+                if ( $this.parent().hasClass( 'active' ) ) {
+                    activeTab = '#' + newHash;
+                }
+
+                collapseDiv.append(
+                    $( '<div>' ).attr( 'class', newParentClass ).html(
+                        $( '<div>' ).attr( 'class', 'panel-heading' ).html(
+                            $( '<h4>' ).attr( 'class', 'panel-title' ).html(
+                                $( '<a>', {
+                                    'class'       : newLinkClass,
+                                    'data-toggle' : 'collapse',
+                                    'data-parent' : '#collapse-' + $tabGroup.attr( 'id' ),
+                                    'href'        : '#' + newHash,
+                                    'html'        : $this.html()
+                                } )
+                            )
+                        )
+                    ).append(
+                        $( '<div>', {
+                            'id'    : newHash,
+                            'class' : 'panel-collapse collapse'
+                        } )
+                    )
+                );
+            } );
+
+            $tabGroup.next().after( collapseDiv );
+            $tabGroup.addClass( hidden );
+            $( '.tab-content.responsive' ).addClass( hidden );
+
+            if ( activeTab ) {
+                $( activeTab ).collapse( 'show' );
+            }
+        } );
+
+
+        fakewaffle.checkResize();
+        fakewaffle.bindTabToCollapse();
+
+        
+    };
+
+    fakewaffle.checkResize = function () {
+
+        if ( $( '.panel-group.responsive' ).is( ':visible' ) === true && fakewaffle.currentPosition === 'tabs' ) {
+            fakewaffle.tabToPanel();
+            fakewaffle.currentPosition = 'panel';
+        } else if ( $( '.panel-group.responsive' ).is( ':visible' ) === false && fakewaffle.currentPosition === 'panel' ) {
+            fakewaffle.panelToTab();
+            fakewaffle.currentPosition = 'tabs';
+        }
+
+    };
+
+    fakewaffle.tabToPanel = function () {
+
+        var tabGroups = $( '.nav-tabs.responsive, .nav-pills.responsive' );
+
+        $.each( tabGroups, function ( index, tabGroup ) {
+
+            // Find the tab
+            var tabContents = $( tabGroup ).next( '.tab-content' ).find( '.tab-pane' );
+
+            $.each( tabContents, function ( index, tabContent ) {
+                // Find the id to move the element to
+                var destinationId = $( tabContent ).attr( 'id' ).replace ( /^/, '#collapse-' );
+
+                // Convert tab to panel and move to destination
+                $( tabContent )
+                    .removeClass( 'tab-pane' )
+                    .addClass( 'panel-body' )
+                    .appendTo( $( destinationId ) );
+
+            } );
+
+        } );
+
+    };
+
+    fakewaffle.panelToTab = function () {
+
+        var panelGroups = $( '.panel-group.responsive' );
+
+        $.each( panelGroups, function ( index, panelGroup ) {
+
+            var destinationId = $( panelGroup ).attr( 'id' ).replace( 'collapse-', '#' );
+            var destination   = $( destinationId ).next( '.tab-content' )[ 0 ];
+
+            // Find the panel contents
+            var panelContents = $( panelGroup ).find( '.panel-body' );
+
+            // Convert to tab and move to destination
+            panelContents
+                .removeClass( 'panel-body' )
+                .addClass( 'tab-pane' )
+                .appendTo( $( destination ) );
+
+        } );
+
+    };
+
+    fakewaffle.bindTabToCollapse = function () {
+
+        var tabs     = $( '.nav-tabs.responsive, .nav-pills.responsive' ).find( 'li a' );
+        var collapse = $( '.panel-group.responsive' ).find( '.panel-collapse' );
+
+        // Toggle the panels when the associated tab is toggled
+        tabs.on( 'shown.bs.tab', function ( e ) {
+        
+            var $current  = $( e.currentTarget.hash.replace( /#/, '#collapse-' ) );
+            $current.collapse( 'show' );
+
+            if ( e.relatedTarget ) {
+                var $previous = $( e.relatedTarget.hash.replace( /#/, '#collapse-' ) );
+                $previous.collapse( 'hide' );
+            }
+        } );
+
+        // Toggle the tab when the associated panel is toggled
+        collapse.on( 'shown.bs.collapse', function ( e ) {
+
+            // Activate current tabs
+            var current = $( e.target ).context.id.replace( /collapse-/g, '#' );
+            $( 'a[href="' + current + '"]' ).tab( 'show' );
+
+            // Update the content with active
+            var panelGroup = $( e.currentTarget ).closest( '.panel-group.responsive' );
+            $( panelGroup ).find( '.panel-body' ).removeClass( 'active' );
+            $( e.currentTarget ).find( '.panel-body' ).addClass( 'active' );
+
+        } );
+    };
+
+    $( window ).resize( function () {
+        fakewaffle.checkResize();
+    } );
+
+    return fakewaffle;
+}( window.jQuery, fakewaffle || { } ) );
+(function($) {
+    fakewaffle.responsiveTabs(['xs']);
+})(jQuery);
+//<![CDATA[
+      var usasearch_config = { siteHandle:'kingcounty' };
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = '//search.usa.gov/javascripts/remote.loader.js';
+      document.getElementsByTagName('head')[0].appendChild(script);
+//]]>
+//Crazy Egg tracking code
+setTimeout(function(){
+  var a=document.createElement('script');
+  var b=document.getElementsByTagName('script')[0];
+  a.src=document.location.protocol+'//script.crazyegg.com/pages/scripts/0013/1306.js?"+Math.floor(new Date().getTime()/3600000);';
+  a.async=true;a.type='text/javascript';b.parentNode.insertBefore(a,b);
+}, 1);
+
+
+
+
+$(function(){
+    //Small scripts or setup for plugins
+
+    /* Sidemenu initialize http://getbootstrap.com/examples/offcanvas/*/
+    $('[data-toggle=offcanvas]').click(function() {
+        $('.row-offcanvas').toggleClass('active');
+    });
+
+    //Hide links in global navigation dropdown menu
+    $('.hidden-link').hide();
+    $('a.toggle-hidden-links').click(function () {
+        if ($(this).hasClass('open')) {
+            $('.hidden-link').hide('fast');
+            $(this).removeClass('open');
+        }
+        else {
+            $('.hidden-link').hide('fast');
+            $('a.toggle-hidden-links').removeClass('open');
+            $(this).closest('ul').children('.hidden-link').show('fast');
+            $(this).addClass('open');
+        }
+    });
+
+    /* Prevent click event on empty a href tags */
+    $('a[href="#"]').click(function (event) {
+        event.preventDefault();
+    });
+
+    // Yamm menu setup
+    $(document).on('click', '.yamm .dropdown-menu', function(e) {
+        e.stopPropagation();
+    });
+
+
+    //Sticky footer setup
+    $('#sticky-footer').scrollToFixed( {
+        bottom: 0,
+        limit: $('#footer-nav-limit').offset().top,
+        fixed: function () {
+            $(this).css('display', 'block');
+            $(this).css('width', '100%');
+        },
+        unfixed: function () {
+           $(this).css('display', 'none');
+        },
+        dontSetWidth: false
+    });
+
+    //Initialize Fitvids
+    $('#main-content').fitVids();
+
+    /* Prevent Safari opening links when viewing as a Mobile App */
+    (function (a, b, c) {
+        if (c in b && b[c]) {
+            var d, e = a.location,
+                f = /^(a|html)$/i;
+            a.addEventListener('click', function (a) {
+                d = a.target;
+                while (!f.test(d.nodeName)) d = d.parentNode
+                "href" in d && (d.href.indexOf("http") || ~d.href.indexOf(e.host)) && (a.preventDefault(), e.href = d.href);
+            }, !1);
+        }
+    })(document, window.navigator, 'standalone');
+
+    //http://getbootstrap.com/getting-started/#support-ie10-width
+    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement('style');
+        msViewportStyle.appendChild(
+            document.createTextNode(
+            '@-ms-viewport{width:auto!important}'
+            )
+        );
+        document.querySelector('head').appendChild(msViewportStyle);
+    }
+});
+$(function(){
+  //Sidebar nav indenting
+  //Only works up to four levels deep
+  //Also includes fix for active item
+  $('#sidebar .panel .list-group.collapsed').find('a.list-group-item').each(function () {
+      $(this).css('padding-left', '+=10');
+  });
+  $('#sidebar .panel .list-group.collapsed > .list-group.collapsed').find('a.list-group-item').each(function () {
+      $(this).css('padding-left', '+=10');
+  });
+  $('#sidebar .panel .list-group.collapsed >.list-group.collapsed > .list-group.collapsed').find('a.list-group-item').each(function () {
+      $(this).css('padding-left', '+=10');
+  });
+   $('#sidebar .panel .list-group.collapsed > .list-group.collapsed > .list-group.collapsed > .list-group.collapsed').find('a.list-group-item').each(function () {
+      $(this).css('padding-left', '+=10');
+  });
+   $('#sidebar .panel a.list-group-item[data-toggle]').each(function () {
+    $(this).addClass('collapsed');
+  });
+  var activeSidebarItem = $('.sidebar-offcanvas .list-group-item.active');
+  $(activeSidebarItem).each(function( index) {
+    $(this).css('padding-left', '-=6');
+  });
+});
+(function() {
+var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+sz.src = '//us2.siteimprove.com/js/siteanalyze_1306788.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+})();
 /*jshint browser:true */
 /*!
 * FitVids 1.1

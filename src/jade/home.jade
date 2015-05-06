@@ -26,7 +26,7 @@ block main-content
               em
                 a(href='/how-do-i.aspx') More tasks
     #kc-home-col-carousel.col-xs-12.col-sm-6.col-md-4
-      #kc-carousel.carousel-col-4.slide(data-ride='carousel')
+      #kc-carousel.carousel.carousel-col-4.slide(data-ride='carousel')
         // Indicators
         ol.carousel-indicators
           li.active(data-target='#kc-carousel', data-slide-to='0')
@@ -82,6 +82,7 @@ block main-content
             h2 Taking a bus?
             form#find_route.form-inline(method='get', onsubmit='return OnSubmitBusForm();', name='find_route', xmlns:kc='http://www.sitecore.net/xhtml', role='form')
               .input-group
+                label.sr-only(for="bus_route") Search Bus Routes
                 input#bus_route.form-control(type='text', placeholder='Route #', name='bus_route', maxlength='3')
                 .input-group-btn
                   button#schedule_btn.btn.btn-primary(onclick='document.pressed=this.value', value='Schedule', name='schedule_btn', type='submit')
@@ -173,7 +174,7 @@ block custom-js
     //set the background image
     $(window).on("resize", function(){chooseBG("!{rootPrefix}img/hero-driftwood-sm.jpg", "!{rootPrefix}img/hero-driftwood.jpg")}).resize();
     //load calendar
-    $("#home-events").eventsCalendar({calNum: '69gk-ky9a',filter: 'civil'});
+    $("#home-events").eventsCalendar({calNum: '69gk-ky9a'});
     
     /****
     * Name: Mark B.
@@ -221,6 +222,9 @@ block custom-js
           output += '<ul>';
           $.each (data, function(i, item) {
             //Start HTML string
+            if (item.d.split(': ')[1] === undefined) {
+              return;
+            }
             var titleStr = item.d;
             var titleParts = titleStr.split(': ');
             var titleStrSub = titleParts[1];

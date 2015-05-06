@@ -6,7 +6,7 @@
     @default-theme-primary: #D67619;
     @brand-darken: 10%;
     @page-title: @gray-darker;
-    @link-color: @brand-primary;
+    @brand-link-color: @brand-primary;
 }
 //CORPORATE
 .setTheme (@themeChoice) when (@themeChoice = "CORPORATE") {
@@ -15,14 +15,17 @@
     @brand-darken: 15%;
     //Page title color
     @page-title: @brand-primary;
+    @brand-link-color: @default-theme-primary;
 }
 //ENVIRONMENT
 .setTheme (@themeChoice) when (@themeChoice = "ENVIRONMENT") {
     //@default-theme-primary: #3D5628;
-    @default-theme-primary: #5D7D39;
+    //@default-theme-primary: #5D7D39;
+    @default-theme-primary: #427839;
     @brand-darken: 15%;
      //Page title color
     @page-title: @brand-primary;
+    @brand-link-color: @default-theme-primary;
 }
 //CARING
 .setTheme (@themeChoice) when (@themeChoice = "CARING") {
@@ -31,12 +34,14 @@
     @brand-darken: 10%;
      //Page title color
     @page-title: @brand-primary;
+    @brand-link-color: @default-theme-primary;
 }
-    
 //Set theme colors
 @h: hue(@default-theme-primary);//30
 @s: saturation(@default-theme-primary);//79
 @l: lightness(@default-theme-primary);//47
+
+@link-color: @brand-link-color;
 
 //Brand primary color
 //@brand-primary: hsl(@h, @s, @l);

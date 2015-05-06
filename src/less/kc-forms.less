@@ -7,4 +7,13 @@
 }
 .has-error {
   .form-control-validation(@state-danger-bg; @state-danger-bg; @state-danger-bg);
+  .input-group-addon {
+    color: #ffffff;
+  }
+}
+.has-feedback label~.form-control-feedback {
+  top:34px;
+}
+.has-feedback label.sr-only~.form-control-feedback{
+  top:9px;
 }

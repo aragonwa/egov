@@ -37,11 +37,12 @@
     }
 }
 .carousel-control {
-    z-index: 20;
-    top: 40%;
-    width:initial;
-    //bottom:15%;
-    .opacity(1);
+  z-index: 20;
+  top: 40%;
+  width:initial;
+  //bottom:15%;
+  .opacity(1);
+  &:link{border-bottom:none}
   // Toggles
   .fa.fa-chevron-left,
   .fa.fa-chevron-right
@@ -64,7 +65,7 @@
     //&:hover {#gradient > .horizontal(@start-color: rgba(0,0,0,.0001); @end-color: rgba(0,0,0,.5));}
   }
   
-  &:hover {
+  &:hover,&:focus {
     .fa.fa-square {
         visibility:hidden;
         @media screen and (min-width: @screen-md-min) {
@@ -164,8 +165,8 @@
 }
 
 //Alt carousel for 4 columns
-.carousel-col-4 {
-  .carousel;
+.carousel.carousel-col-4 {
+  //.carousel;
   @media screen and (min-width: @screen-sm-min) {
     .carousel-caption {
       background-color: rgba(35, 35, 31, 0.9);

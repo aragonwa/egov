@@ -15,71 +15,13 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,300,600,700,800,400" rel="stylesheet" type="text/css">
     <script src="js/vendor/modernizr-latest.js"></script>
     <style>
-      .bp-autocomplete-holder {
-          position: relative;
+      #typeaheadInput{
+        position:relative;
       }
-      .bp-autocomplete-dropdown {
-          border-color: #ececec;
-          border-width: 1px;
-          border-style: solid;
-          border-radius: 2px;
-          width: 250px;
-          padding: 6px;
-          cursor: pointer;
-          z-index: 9999;
-          position: absolute;
-          /*top: 32px;
-          left: 0px;
-          */
-          margin-top: -6px;
-          background-color: #ffffff;
-      }
-      
-      .bp-autocomplete-searching {
-          color: #bp-acacac;
-          font-size: 14px;
-      }
-      
-      .bp-autocomplete-description {
-          font-size: 14px;
-      }
-      
-      .bp-autocomplete-row {
-          padding: 5px;
-          color: #000000;
-          margin-bottom: 4px;
-          
-      }
-      
-      .bp-autocomplete-selected-row, .bp-autocomplete-row:hover {
-          background-color: lightblue;
-          color: #ffffff;
-      }
-      
-      .bp-autocomplete-image-holder {
-          padding-top: 2px;
-          float: left;
-          margin-right: 10px;
-          margin-left: 5px;
-      }
-      
-      .bp-autocomplete-image {
-          height: 34px;
-          width: 34px;
-          border-radius: 50%;
-          border-color: #ececec;
-          border-style: solid;
-          border-width: 1px;
-      }
-      
-      .bp-autocomplete-image-default {
-          /* Add your own default image here
-           background-image: url('/assets/default.png');
-          */
-          background-position: center;
-          background-size: contain;
-          height: 34px;
-          width: 34px;
+      #typeaheadResults{
+        position:absolute;
+        z-index: 1;
+        width:93%;
       }
     </style>
   </head>
@@ -96,7 +38,7 @@
       css.setAttribute('href', 'css/ie-only.css');
       document.getElementsByTagName('head')[0].appendChild(css);
       }
-    </script><a href="#main-content-sr" class="sr-only">Skip to main content</a>
+    </script><a href="#main-content-sr" class="sr-only sr-only-focusable">Skip to main content</a>
     <!-- GLOBAL ALERT GOES HERE-->
     <header class="hidden-print">
       <div id="navbar-bg"></div>
@@ -371,7 +313,7 @@
       <!-- SM NAVBAR-->
       <nav id="nav-sm" role="navigation" class="navbar navbar-inverse yamm">
         <div class="container visible-sm">
-          <div class="navbar-header"><a href="/"><img src="img/KClogo-horiz-white-sm-xs.png" alt="King County logo" class="img-responsive"></a></div>
+          <div class="navbar-header remove-border-bottom"><a href="/"><img src="img/KClogo-horiz-white-sm-xs.png" alt="King County logo" class="img-responsive"></a></div>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/" class="nav-header"><i class="fa fa-home"></i></a></li>
             <li class="dropdown yamm-fw"><a href="/how-do-i" title="How do I..." data-toggle="dropdown" class="dropdown-toggle disabled nav-header bold"><span>How do I... </span><i class="fa fa-caret-down"></i></a>
@@ -639,7 +581,7 @@
       <!-- XS NAVBAR-->
       <nav id="nav-xs" role="navigation" class="navbar navbar-inverse">
         <div class="container visible-xs">
-          <div class="navbar-header">
+          <div class="navbar-header remove-border-bottom">
             <button type="button" data-toggle="collapse" data-target="#navbar-dropdown-xs" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><i class="fa fa-search fa-2x"></i></button><a href="/"><img src="img/KClogo-horiz-white-sm-xs.png" alt="King County logo" class="img-responsive"></a>
             <button id="nav-search-btn-xs" type="button" data-toggle="collapse" data-target="#navbar-dropdown-xs" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><i class="fa fa-bars fa-2x"></i></button>
           </div>
@@ -670,6 +612,11 @@
             <!-- BREADCRUMB-->
             <div class="row addon-row main-breadcrumb-row hidden-print">
               <div class="col-xs-12">
+                <!--btn.btn.btn-link.text-inverse(type='button', data-toggle='modal', data-target='#myModal')
+                span.fa-stack#hero-details
+                  i.fa.fa-square.fa-stack-2x
+                  i.fa.fa-camera.fa-stack-1x.fa-inverse
+                -->
                 <button data-toggle="offcanvas" class="btn btn-nav-green pull-left visible-xs visible-sm"><i class="fa fa-chevron-left"></i>&nbspMenu </button>
                 <ol class="breadcrumb main-breadcrumb">
                   <li><a href="#">Level 1</a></li>
@@ -688,13 +635,24 @@
             </div>
             <div class="row addon-row addon-row-attached">
               <div class="col-sm-12">
-                <div id="test"></div>
+                <form>
+                  <div class="form-group">
+                    <div id="typeaheadInput" class="input-group">
+                      <input type="text" placeholder="Search" disabled class="form-control">
+                      <!--span.input-group-btn//button.btn.btn-default(type="button") Go
+                      -->
+                    </div>
+                  </div>
+                  <div id="typeaheadResults" class="form-group">
+                    <ul class="list-group"></ul>
+                  </div>
+                </form>
               </div>
             </div>
             <div class="row addon-row addon-row-transparent main-share-links">
               <div class="col-sm-12">
                 <ul class="list-inline">
-                  <li>Last Updated February 20, 2014    </li>
+                  <li id="LastUpdate">Last Updated February 20, 2014    </li>
                   <li class="clearfix visible-xs"></li>
                   <li class="hidden-print"><a id="facebook-share-button" href="#" rel="nofollow" title="Share on Facebook" class="btn btn-default"><i class="fa fa-facebook-square"></i>&nbspShare</a></li>
                   <li class="hidden-print"><a id="twitter-share-button" href="#" rel="nofollow" title="Share on Twitter" class="btn btn-default"><i class="fa fa-twitter"></i>&nbspTweet</a></li>
@@ -794,41 +752,46 @@
       </div>
     </footer>
     <!-- Javascript files-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <!--set the background image-->
     <script>$(window).on("resize", function(){chooseBG("img/hero-driftwood-sm.jpg", "img/hero-driftwood.jpg")}).resize();</script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-    <script src="js/vendor/autocomplete.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script>
-      //Variable to hold autocomplete options
-      var keys;
-      //Load data
-      d3.json('http://data.kingcounty.gov/resource/mxn5-gsdz.json', function(error, jsonData) {
-        if (error) return console.warn(error);
-        keys=jsonData;
-        start();
+      $.getJSON('https://data.kingcounty.gov/resource/fyug-m7sc.json', function(data){
+        loadTypeahead(data);
       });
-      //Call back for when user selects an option
-      function onSelect(d) {
-        //alert(d.link);
-        window.open(d.url, name='_self');
-      }
-      //Setup and render the autocomplete
-      function start() {
-        var mc = autocomplete(document.getElementById('test'))
-          .keys(keys)
-          .dataField('department')
-          .placeHolder("Start typing here")
-          //.width(960)
-          //.height(500)
-          .onSelected(onSelect)
-          .render();
-           $("#bp-ac").appendTo("#test");
+      
+      function loadTypeahead(data){
+        $input = $('#typeaheadInput input');
+        $results = $('#typeaheadResults');
+        
+        $input.removeAttr('disabled');
+        
+        $input.keyup(function() {
+            $results.html('');
+            var filteredData = _.filter(data, function(val){ 
+                if(val.task.toLowerCase().indexOf($input.val().toLowerCase()) > -1) {
+                  return val;
+                }
+            });
+            $.each(filteredData, function(index, value){
+              $results.append(listItemTemplate(value.task,value.link));
+            });
+            
+            $results.find('a').click(function() {
+              $input.val(this.innerHTML);
+              $results.html('');
+            });
+        });
       }
       
-      
+      function listItemTemplate(text,link){
+        var formatedLink;
+        formatedLink = '<a class="list-group-item" href="'+ link +'">'+ text +'</a>';
+        return formatedLink;
+      }
     </script>
   </body>
 </html>

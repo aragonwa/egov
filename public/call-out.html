@@ -28,7 +28,7 @@
       css.setAttribute('href', 'css/ie-only.css');
       document.getElementsByTagName('head')[0].appendChild(css);
       }
-    </script><a href="#main-content-sr" class="sr-only">Skip to main content</a>
+    </script><a href="#main-content-sr" class="sr-only sr-only-focusable">Skip to main content</a>
     <!-- GLOBAL ALERT GOES HERE-->
     <header class="hidden-print">
       <div id="navbar-bg"></div>
@@ -303,7 +303,7 @@
       <!-- SM NAVBAR-->
       <nav id="nav-sm" role="navigation" class="navbar navbar-inverse yamm">
         <div class="container visible-sm">
-          <div class="navbar-header"><a href="/"><img src="img/KClogo-horiz-white-sm-xs.png" alt="King County logo" class="img-responsive"></a></div>
+          <div class="navbar-header remove-border-bottom"><a href="/"><img src="img/KClogo-horiz-white-sm-xs.png" alt="King County logo" class="img-responsive"></a></div>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/" class="nav-header"><i class="fa fa-home"></i></a></li>
             <li class="dropdown yamm-fw"><a href="/how-do-i" title="How do I..." data-toggle="dropdown" class="dropdown-toggle disabled nav-header bold"><span>How do I... </span><i class="fa fa-caret-down"></i></a>
@@ -571,7 +571,7 @@
       <!-- XS NAVBAR-->
       <nav id="nav-xs" role="navigation" class="navbar navbar-inverse">
         <div class="container visible-xs">
-          <div class="navbar-header">
+          <div class="navbar-header remove-border-bottom">
             <button type="button" data-toggle="collapse" data-target="#navbar-dropdown-xs" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><i class="fa fa-search fa-2x"></i></button><a href="/"><img src="img/KClogo-horiz-white-sm-xs.png" alt="King County logo" class="img-responsive"></a>
             <button id="nav-search-btn-xs" type="button" data-toggle="collapse" data-target="#navbar-dropdown-xs" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><i class="fa fa-bars fa-2x"></i></button>
           </div>
@@ -666,7 +666,7 @@
             <div class="row addon-row addon-row-transparent main-share-links">
               <div class="col-sm-12">
                 <ul class="list-inline">
-                  <li>Last Updated February 20, 2014    </li>
+                  <li id="LastUpdate">Last Updated February 20, 2014    </li>
                   <li class="clearfix visible-xs"></li>
                   <li class="hidden-print"><a id="facebook-share-button" href="#" rel="nofollow" title="Share on Facebook" class="btn btn-default"><i class="fa fa-facebook-square"></i>&nbspShare</a></li>
                   <li class="hidden-print"><a id="twitter-share-button" href="#" rel="nofollow" title="Share on Twitter" class="btn btn-default"><i class="fa fa-twitter"></i>&nbspTweet</a></li>
@@ -766,8 +766,8 @@
       </div>
     </footer>
     <!-- Javascript files-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <!--set the background image-->
     <script>$(window).on("resize", function(){chooseBG("img/hero-driftwood-sm.jpg", "img/hero-driftwood.jpg")}).resize();</script>
