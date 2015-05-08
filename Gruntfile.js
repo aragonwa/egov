@@ -1,11 +1,17 @@
 module.exports = function(grunt) {
   'use strict';
+
+  // Set option in command line --targetFile="file"
+  var targetFile = grunt.option('targetFile');
+
   var globalConfig = {
     src: 'src',
     public: 'public',
     tfs: 'tfs',
-    styleguide :'public'
+    styleguide :'public',
+    targetFile : targetFile
   };
+
 
   // 1. All configuration goes here 
   grunt.initConfig({
@@ -37,12 +43,12 @@ module.exports = function(grunt) {
           compress: false,
         },
         files: {
-          '<%= globalConfig.tfs%>/css/kc-theme-default.css': '../src/less/kc-theme-default.less',
-          '<%= globalConfig.tfs %>/css/kc-theme-caring.css': '../src/less/kc-theme-caring.less',
-          '<%= globalConfig.tfs %>/css/kc-theme-corporate.css': '../src/less/kc-theme-corporate.less',
-          '<%= globalConfig.tfs %>/css/kc-theme-environment.css': '../src/less/kc-theme-environment.less',
-          '<%= globalConfig.tfs %>/css/kc-print.css': '../src/less/print/kc-print.less',
-          '<%= globalConfig.tfs %>/css/ie-only.css': '../src/less/IE-only/ie-only.less'
+          '<%= globalConfig.tfs%>/css/kc-theme-default.css': '<%= globalConfig.src %>/less/kc-theme-default.less',
+          '<%= globalConfig.tfs %>/css/kc-theme-caring.css': '<%= globalConfig.src %>/less/kc-theme-caring.less',
+          '<%= globalConfig.tfs %>/css/kc-theme-corporate.css': '<%= globalConfig.src %>/less/kc-theme-corporate.less',
+          '<%= globalConfig.tfs %>/css/kc-theme-environment.css': '<%= globalConfig.src %>/less/kc-theme-environment.less',
+          '<%= globalConfig.tfs %>/css/kc-print.css': '<%= globalConfig.src %>/less/print/kc-print.less',
+          '<%= globalConfig.tfs %>/css/ie-only.css': '<%= globalConfig.src %>/less/IE-only/ie-only.less'
         }
       }
     },
@@ -70,8 +76,12 @@ module.exports = function(grunt) {
                   ' *\/\n',
         },
         files: {
+          '<%= globalConfig.src %>/js/vendor/kc-formValidation.js':
+          ['<%= globalConfig.src %>/js/vendor/form-validator/dist/js/formValidation.js',
+          '<%= globalConfig.src %>/js/vendor/form-validator/dist/js/framework/bootstrap.js'],
           '<%= globalConfig.public %>/js/main.js':
           ['<%= globalConfig.src %>/js/lib/*.js',
+          '!<%= globalConfig.src %>/js/lib/dept-footer-map.js',
           '<%= globalConfig.src %>/js/vendor/site-improve.js',
           '<%= globalConfig.src %>/js/vendor/fitvids.min.js',
           '<%= globalConfig.src %>/js/vendor/scrollToFixed.min.js'],
@@ -167,7 +177,8 @@ module.exports = function(grunt) {
       },
       development: {
         files: {
-          '<%= globalConfig.public %>/js/main.js': ['<%= globalConfig.public %>/js/main.js']
+          '<%= globalConfig.public %>/js/main.js': ['<%= globalConfig.public %>/js/main.js'],
+          '<%= globalConfig.public %>/js/vendor/kc-formValidation.min.js': ['<%= globalConfig.public %>/js/vendor/kc-formValidation.min.js']
         }
       },
       tfs: {
@@ -195,6 +206,14 @@ module.exports = function(grunt) {
         {
           src: '<%= globalConfig.src %>/js/vendor/modernizr-latest.js',
           dest: '<%= globalConfig.public %>/js/vendor/modernizr-latest.js'
+        },
+        {
+          src: '<%= globalConfig.src %>/js/vendor/kc-formValidation.js',
+          dest: '<%= globalConfig.public %>/js/vendor/kc-formValidation.min.js'
+        },
+        {
+          src: '<%= globalConfig.src %>/js/lib/dept-footer-map.js',
+          dest: '<%= globalConfig.public %>/js/lib/dept-footer-map.js'
         }]
       },
       'tfs-js':{
@@ -274,7 +293,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          '<%= globalConfig.public %>/jumbotron.html': '<%= globalConfig.src %>/jade/jumbotron.jade'
+          '<%= globalConfig.public %>/<%= globalConfig.targetFile %>.html': '<%= globalConfig.src %>/jade/<%= globalConfig.targetFile %>.jade'
         }
       }
     },
@@ -321,7 +340,7 @@ module.exports = function(grunt) {
         }
       },
       spec: {
-        files: ['<%= globalConfig.src %>/jade/jumbotron.jade'],
+        files: ['<%= globalConfig.src %>/jade/<%= globalConfig.targetFile %>.jade'],
         tasks: ['jade:spec']
       }
     },

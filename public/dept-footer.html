@@ -14,39 +14,7 @@
     <link rel="stylesheet" href="css/kc-theme-default.css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,300,600,700,800,400" rel="stylesheet" type="text/css">
     <script src="js/vendor/modernizr-latest.js"></script>
-    <style>
-      .map-container {
-        position: relative;
-        height: 100%;
-      }
-      .map-overlay {
-        color:#fff;
-        background:   #000;
-        padding:      15px;
-        padding-right: 30%;
-        margin:       0 auto;
-        width:        100%;
-        position: absolute;
-        top:0;
-        bottom:0;
-        overflow:hidden;
-        background: -moz-linear-gradient(left,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-        background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
-      }
-      .map-overlay h3 {
-        color:#fff;
-      }
-      #map-canvas {
-       height: 250px; 
-       margin: 0; 
-       padding: 0;
-      }
-    </style>
+    <style></style>
   </head>
   <body>
     <script>
@@ -705,31 +673,85 @@
               <div class="col-sm-12">
                 <div class="row full-width-row">
                   <div class="col-sm-8">
-                    <div class="map-container">
-                      <div id="map-canvas"></div>
-                      <div class="map-overlay">
-                        <h3>Records and Licensing Services Division</h3>
-                        <address>
-                          <p>King County Administration Building<br>500 Fourth Ave., Suite 401<br>Seattle, WA 98104</p>
-                        </address>
-                        <p><strong><a href="" id="map-link" class="btn btn-primary">Get directions</a></a></strong></p>
+                    <div class="dept-footer-map">
+                      <div class="map-container">
+                        <div id="map-canvas" class="map-canvas"></div>
+                        <div class="map-overlay">
+                          <h3>Records and Licensing Services Division</h3>
+                          <address>
+                            <p>King County Administration Building<br>500 Fourth Ave., Suite 401<br>Seattle, WA 98104</p>
+                          </address>
+                          <p><strong><a href="" id="map-link" class="btn btn-primary">Get directions</a></a></strong></p>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <h4>Contact us</h4>
-                    <table class="table">
+                    <table class="table table-condensed">
                       <tr>
                         <td>
-                          <div class="fa fa-phone-square fa-color-primary fa-2x fa-fw"></div>
+                          <div class="fa fa-phone-square fa-color-default fa-2x"></div>
                         </td>
-                        <td>   <strong>Vehicle &amp; Vessel Licensing: </strong><br>206-477-4000</td>
+                        <td>   <strong>Vehicle &amp; Vessel Licensing: </strong><br><a href="tel:2064774000">206-477-4000</a></td>
                       </tr>
                       <tr>
                         <td>
-                          <div class="fa fa-phone-square fa-color-primary fa-2x fa-fw"></div>
+                          <div class="fa fa-phone-square fa-color-default fa-2x"></div>
                         </td>
-                        <td>   <strong>Taxi/For-Hire/TNC:</strong><br>206-263-1982  </td>
+                        <td>   <strong>Taxi/For-Hire/TNC:</strong><br><a href="tel:2062631982">206-263-1982</a></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="fa fa-fax fa-color-default fa-2x"></div>
+                        </td>
+                        <td>   <strong>Taxi/For-Hire/TNC:</strong><br><a href="tel:2062631982">206-263-1982</a></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="fa fa-envelope fa-color-default fa-2x"></div>
+                        </td>
+                        <td><a href="https://public.govdelivery.com/accounts/WAKING/subscriber/new?topic_id=JaneHague">Sign up for my eNewsletter</a>- get news about District 6 and King County government delivered right to your email .</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="row full-width-row">
+                  <div class="col-sm-8">
+                    <div class="dept-footer-map">
+                      <div class="map-container">
+                        <div id="map-canvas2" class="map-canvas"></div>
+                        <div class="map-overlay">
+                          <h3>Law Offices of Guys Inc.</h3>
+                          <address>
+                            <p>King Street Center Building<br>298 S King St<br>Seattle, WA 98104</p>
+                          </address>
+                          <p><strong><a href="" id="map-link" class="btn btn-primary">Get directions</a></a></strong></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <table class="table table-condensed">
+                      <tr>
+                        <td colspan="2">
+                          <h6>Contact us</h6>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <div class="remove-link-underline"><a href="https://www.facebook.com/ExecutiveConstantine"><span class="fa-stack fa-2x"><i class="fa fa-square fa-stack-2x fa-inverse"></i><i class="fa fa-facebook-square fa-stack-2x"></i></span></a><a href="http://www.twitter.com/kcexec"><span class="fa-stack fa-2x"><i class="fa fa-square fa-stack-2x fa-inverse"></i><i class="fa fa-twitter-square fa-stack-2x"></i></span></a><a href="http://www.flickr.com/photos/117115665@N05"><span class="fa-stack fa-2x"><i class="fa fa-square fa-stack-2x fa-inverse"></i><i class="fa fa-flickr fa-stack-2x"> </i></span></a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><img alt="Dow constantine portrait" src="http://www.kingcounty.gov/elected/executive/~/media/elected/executive/constantine/graphics/dow-constantine-footer.ashx"></td>
+                        <td>
+                          <p>King County Executive <br><strong>Dow Constantine</strong></p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <p>Read the Executive's&nbsp;<a href="/elected/executive/constantine/about/biography.aspx">biography</a></p>
+                        </td>
                       </tr>
                     </table>
                   </div>
@@ -845,52 +867,13 @@
     <!--set the background image-->
     <script>$(window).on("resize", function(){chooseBG("img/hero-driftwood-sm.jpg", "img/hero-driftwood.jpg")}).resize();</script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT-mLo8UZkliV9nOtzr4gcVDNCqvx7SdI"></script>
+    <script src="js/lib/dept-footer-map.js"></script>
     <script>
-      (function($){
-        $.fn.footerMap = function( options ) {
-          var $this = $(this);
-          
-          var settings = $.extend({
-            address: '',
-            mapOptions : {
-              zoom: 18,
-              mapTypeId : google.maps.MapTypeId.HYBRID,
-              center: {lat: '', lng: ''},
-              draggable: false, 
-              zoomControl: false, 
-              scrollwheel: false, 
-              disableDoubleClickZoom: true,
-              disableDefaultUI: true
-            }
-          }, options);
-          
-          return this.each(function() {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode( { 'address': settings.address}, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                settings.mapOptions.center.lat = results[0].geometry.location.lat();
-                settings.mapOptions.center.lng = results[0].geometry.location.lng();
-                loadGMap(settings.mapOptions)
-              } else {
-                console.log('Geocode was not successful for the following reason: ' + status);
-              }
-            });
-          });//End return
-          
-          function loadGMap(mapOptions){
-            var map = new google.maps.Map($this[0], mapOptions);
-            map.setTilt(45);
-            marker = new google.maps.Marker({
-              position: mapOptions.center,
-              map: map
-            }),
-            mapLink = $('#map-link');
-            mapLink.attr('href', 'https://www.google.com/maps/dir//' + settings.address);
-          }
-        };
-      })(jQuery);
-      //THree line address, email line; possibly 
-      $('#map-canvas').footerMap( {address: '500 Fourth Ave. Seattle, WA 98104'});
+      //TODO: Allow for 
+      (function($) {
+        $('#map-canvas').footerMap( {address: '500 Fourth Ave. Seattle, WA 98104'});
+        $('#map-canvas2').footerMap( {address: '298 S King St, Seattle, WA 98104'});
+      })(jQuery);  
     </script>
   </body>
 </html>

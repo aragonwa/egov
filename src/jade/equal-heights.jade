@@ -13,7 +13,7 @@ block main-content
       .page-header
         h1 Equal height boxes
   .row.addon-row.addon-row-attached
-    .thumbnail-eq-height
+    .col-eq-heights
       .col-xs-4
         .thumbnail
           h3 Thumbnail label
@@ -27,7 +27,7 @@ block main-content
           h3 Thumbnail label
           p Lorem ipsum dolor
   .row.addon-row.addon-row-attached
-    .thumbnail-eq-height
+    .col-eq-heights
       .col-xs-4
         .thumbnail
           h3 Thumbnail label
@@ -40,15 +40,38 @@ block main-content
         .thumbnail
           h3 Thumbnail label
           p Lorem ipsum dolor
+  .row.addon-row.addon-row-attached
+    .col-eq-heights
+      .col-xs-4
+        .panel.panel-default
+          .panel-heading
+            .panel-title Panel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel title
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+          .panel-footer Panel footer
+      .col-xs-4
+        .panel.panel-default
+          .panel-heading
+            .panel-title Panel title Panel titlePanel titlePanel titlePanel titlePanel titlePanel title
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+          .panel-footer Panel footer
+      .col-xs-4
+        .panel.panel-default
+          .panel-heading
+            .panel-title Panel title
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+          .panel-footer Panel footer
 block custom-js
   script.
     $(document).ready(function() {   
-          $(".thumbnail-eq-height").equalHeightThumbnails();
+      $(".col-eq-heights").equalHeightColumns();
     });
 
     ;(function ( $, window, document, undefined ) {
 
-        var pluginName = "equalHeightThumbnails",
+        var pluginName = "equalHeightColumns",
             defaults = {
                 //propertyName: "value"
             };
@@ -64,26 +87,36 @@ block custom-js
 
         Plugin.prototype = {
 
-            init: function() {
-                this.getEqualHeights(this.element, this.options);
-            },
+          init: function() {
+            this.getEqualHeights(this.element, this.options);
+          },
 
-            getEqualHeights: function(el, options) {
-              var tallest = 0;
-              var i;
-              var j;
-              $(el).each(function(){
-                var thumbnails = $(el).find('.thumbnail');
-                for(j=0; j < thumbnails.length; j++) {
-                  var thisHeight = $(thumbnails[j]).height();
-                  if(thisHeight > tallest) {          
-                    tallest = thisHeight;       
-                  }
+          getEqualHeights: function(el, options) {
+            var tallest = 0;
+            var i;
+            var j;
+            $(el).each(function(){
+              var els = $(el).find('[class*="col-"]');
+              for(j=0; j < els.length; j++) {
+                var thisHeight = $(els[j]).height();
+                if(thisHeight > tallest) {          
+                  tallest = thisHeight;       
                 }
-                $(thumbnails).height(tallest);
-                tallest = 0;
-              });
-            }
+              //- }
+              //- if (els.children().hasClass('panel')) {
+              //-   $.each(els.children(),function(index,val){
+              //-     var panelHead = $(val).children('.panel-heading').height();
+              //-     var panelBody = $(val).children('.panel-body').height();
+              //-     var panelFooter = $(val).children('.panel-footer').height();
+              //-     var panelTotalHeight = panelHead + panelBody + panelFooter;
+              //-   });
+                tallest = (els.children().hasClass('panel')) ? tallest -= 22 : tallest;
+              } else {
+                $(els.children()).height(tallest);
+              }
+              tallest = 0;
+            });
+          }
         };
 
         $.fn[pluginName] = function ( options ) {

@@ -7,38 +7,7 @@ block sidebar
   // SIDENAV
   include includes/sidenav
 block custom-style
-  style.
-    .map-container {
-      position: relative;
-      height: 100%;
-    }
-    .map-overlay {
-      color:#fff;
-      background:   #000;
-      padding:      15px;
-      padding-right: 30%;
-      margin:       0 auto;
-      width:        100%;
-      position: absolute;
-      top:0;
-      bottom:0;
-      overflow:hidden;
-      background: -moz-linear-gradient(left,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-      background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
-    }
-    .map-overlay h3 {
-      color:#fff;
-    }
-    #map-canvas {
-     height: 250px; 
-     margin: 0; 
-     padding: 0;
-    }
+  style
 block breadcrumb
   // BREADCRUMB
   include includes/breadcrumb
@@ -66,82 +35,109 @@ block main-content
     .col-sm-12
       .row.full-width-row
         .col-sm-8
-          .map-container
-            #map-canvas
-            .map-overlay
-                h3 Records and Licensing Services Division
-                address
+          .dept-footer-map
+            .map-container
+              #map-canvas.map-canvas
+              .map-overlay
+                  h3 Records and Licensing Services Division
+                  address
+                    p 
+                      | King County Administration Building
+                      br 
+                      | 500 Fourth Ave., Suite 401
+                      br
+                      | Seattle, WA 98104
                   p 
-                    | King County Administration Building
-                    br 
-                    | 500 Fourth Ave., Suite 401
-                    br
-                    | Seattle, WA 98104
-                p 
-                  strong
-                    a.btn.btn-primary(href="" id="map-link") Get directions</a>
+                    strong
+                      a.btn.btn-primary(href="" id="map-link") Get directions</a>
         .col-sm-4
-          h4 Contact us
-          table.table
+          table.table.table-condensed
             tr
               td
-                .fa.fa-phone-square.fa-color-primary.fa-2x.fa-fw
+                .fa.fa-phone-square.fa-color-default.fa-2x
               td    
                 strong Vehicle &amp; Vessel Licensing: 
                 br
-                | 206-477-4000
+                a(href="tel:2064774000") 206-477-4000
             tr
               td
-                .fa.fa-phone-square.fa-color-primary.fa-2x.fa-fw
+                .fa.fa-phone-square.fa-color-default.fa-2x
               td    
                 strong Taxi/For-Hire/TNC:
                 br
-                | 206-263-1982  
+                a(href="tel:2062631982") 206-263-1982
+            tr
+              td
+                .fa.fa-fax.fa-color-default.fa-2x
+              td    
+                strong Taxi/For-Hire/TNC:
+                br
+                a(href="tel:2062631982") 206-263-1982
+            tr
+              td
+                .fa.fa-envelope.fa-color-default.fa-2x
+              td 
+                a(href="https://public.govdelivery.com/accounts/WAKING/subscriber/new?topic_id=JaneHague") Sign up for my eNewsletter
+                | - get news about District 6 and King County government delivered right to your email .
+      .row.full-width-row
+        .col-sm-8
+          .dept-footer-map
+            .map-container
+              #map-canvas2.map-canvas
+              .map-overlay
+                  h3 Law Offices of Guys Inc.
+                  address
+                    p 
+                      | King Street Center Building
+                      br 
+                      | 298 S King St
+                      br
+                      | Seattle, WA 98104
+                  p 
+                    strong
+                      a.btn.btn-primary(href="" id="map-link") Get directions</a>
+        .col-sm-4
+          
+          table.table.table-condensed
+            tr
+              td(colspan="2") 
+                h6 Contact us
+            tr 
+              td(colspan="2")
+                .remove-link-underline
+                  a(href='https://www.facebook.com/ExecutiveConstantine')
+                    span.fa-stack.fa-2x
+                      i.fa.fa-square.fa-stack-2x.fa-inverse
+                      i.fa.fa-facebook-square.fa-stack-2x
+                  a(href='http://www.twitter.com/kcexec')
+                    span.fa-stack.fa-2x
+                      i.fa.fa-square.fa-stack-2x.fa-inverse
+                      i.fa.fa-twitter-square.fa-stack-2x
+                  a(href='http://www.flickr.com/photos/117115665@N05')
+                    span.fa-stack.fa-2x
+                      i.fa.fa-square.fa-stack-2x.fa-inverse
+                      i.fa.fa-flickr.fa-stack-2x  
+            tr
+              td
+                img(alt='Dow constantine portrait', src='http://www.kingcounty.gov/elected/executive/~/media/elected/executive/constantine/graphics/dow-constantine-footer.ashx')
+              td
+                p King County Executive 
+                  br 
+                  strong Dow Constantine
+              
+            tr
+              td(colspan="2") 
+                p Read the Executive's&nbsp;
+                  a(href='/elected/executive/constantine/about/biography.aspx') biography
+
 block custom-js
   script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDT-mLo8UZkliV9nOtzr4gcVDNCqvx7SdI')
+  //-http://www.kingcounty.gov/~/media/scripts/dept-footer-map.js
+  script(src="js/lib/dept-footer-map.js")
   script.
-    (function($){
-      $.fn.footerMap = function( options ) {
-        var $this = $(this);
-
-        var settings = $.extend({
-          address: '',
-          mapOptions : {
-            zoom: 18,
-            mapTypeId : google.maps.MapTypeId.HYBRID,
-            center: {lat: '', lng: ''},
-            draggable: false, 
-            zoomControl: false, 
-            scrollwheel: false, 
-            disableDoubleClickZoom: true,
-            disableDefaultUI: true
-          }
-        }, options);
-
-        return this.each(function() {
-          var geocoder = new google.maps.Geocoder();
-          geocoder.geocode( { 'address': settings.address}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-              settings.mapOptions.center.lat = results[0].geometry.location.lat();
-              settings.mapOptions.center.lng = results[0].geometry.location.lng();
-              loadGMap(settings.mapOptions)
-            } else {
-              console.log('Geocode was not successful for the following reason: ' + status);
-            }
-          });
-        });//End return
-
-        function loadGMap(mapOptions){
-          var map = new google.maps.Map($this[0], mapOptions);
-          map.setTilt(45);
-          marker = new google.maps.Marker({
-            position: mapOptions.center,
-            map: map
-          }),
-          mapLink = $('#map-link');
-          mapLink.attr('href', 'https://www.google.com/maps/dir//' + settings.address);
-        }
-      };
-    })(jQuery);
-    //THree line address, email line; possibly 
-    $('#map-canvas').footerMap( {address: '500 Fourth Ave. Seattle, WA 98104'});
+    //TODO: Allow for 
+    (function($) {
+      $('#map-canvas').footerMap( {address: '500 Fourth Ave. Seattle, WA 98104'});
+      $('#map-canvas2').footerMap( {address: '298 S King St, Seattle, WA 98104'});
+    })(jQuery);  
+    

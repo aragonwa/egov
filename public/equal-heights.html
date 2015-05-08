@@ -637,7 +637,7 @@
               </div>
             </div>
             <div class="row addon-row addon-row-attached">
-              <div class="thumbnail-eq-height">
+              <div class="col-eq-heights">
                 <div class="col-xs-4">
                   <div class="thumbnail">
                     <h3>Thumbnail label</h3>
@@ -659,7 +659,7 @@
               </div>
             </div>
             <div class="row addon-row addon-row-attached">
-              <div class="thumbnail-eq-height">
+              <div class="col-eq-heights">
                 <div class="col-xs-4">
                   <div class="thumbnail">
                     <h3>Thumbnail label</h3>
@@ -676,6 +676,43 @@
                   <div class="thumbnail">
                     <h3>Thumbnail label</h3>
                     <p>Lorem ipsum dolor</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row addon-row addon-row-attached">
+              <div class="col-eq-heights">
+                <div class="col-xs-4">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="panel-title">Panel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel titlePanel title</div>
+                    </div>
+                    <div class="panel-body">
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                    </div>
+                    <div class="panel-footer">Panel footer</div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="panel-title">Panel title Panel titlePanel titlePanel titlePanel titlePanel titlePanel title</div>
+                    </div>
+                    <div class="panel-body">
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                    </div>
+                    <div class="panel-footer">Panel footer</div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="panel-title">Panel title</div>
+                    </div>
+                    <div class="panel-body">
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                    </div>
+                    <div class="panel-footer">Panel footer</div>
                   </div>
                 </div>
               </div>
@@ -790,12 +827,12 @@
     <script>$(window).on("resize", function(){chooseBG("img/hero-driftwood-sm.jpg", "img/hero-driftwood.jpg")}).resize();</script>
     <script>
       $(document).ready(function() {   
-            $(".thumbnail-eq-height").equalHeightThumbnails();
+        $(".col-eq-heights").equalHeightColumns();
       });
       
       ;(function ( $, window, document, undefined ) {
       
-          var pluginName = "equalHeightThumbnails",
+          var pluginName = "equalHeightColumns",
               defaults = {
                   //propertyName: "value"
               };
@@ -811,26 +848,36 @@
           
           Plugin.prototype = {
           
-              init: function() {
-                  this.getEqualHeights(this.element, this.options);
-              },
-              
-              getEqualHeights: function(el, options) {
-                var tallest = 0;
-                var i;
-                var j;
-                $(el).each(function(){
-                  var thumbnails = $(el).find('.thumbnail');
-                  for(j=0; j < thumbnails.length; j++) {
-                    var thisHeight = $(thumbnails[j]).height();
-                    if(thisHeight > tallest) {          
-                      tallest = thisHeight;       
-                    }
+            init: function() {
+              this.getEqualHeights(this.element, this.options);
+            },
+            
+            getEqualHeights: function(el, options) {
+              var tallest = 0;
+              var i;
+              var j;
+              $(el).each(function(){
+                var els = $(el).find('[class*="col-"]');
+                for(j=0; j < els.length; j++) {
+                  var thisHeight = $(els[j]).height();
+                  if(thisHeight > tallest) {          
+                    tallest = thisHeight;       
                   }
-                  $(thumbnails).height(tallest);
-                  tallest = 0;
-                });
-              }
+                //- }
+                //- if (els.children().hasClass('panel')) {
+                //-   $.each(els.children(),function(index,val){
+                //-     var panelHead = $(val).children('.panel-heading').height();
+                //-     var panelBody = $(val).children('.panel-body').height();
+                //-     var panelFooter = $(val).children('.panel-footer').height();
+                //-     var panelTotalHeight = panelHead + panelBody + panelFooter;
+                //-   });
+                  tallest = (els.children().hasClass('panel')) ? tallest -= 22 : tallest;
+                } else {
+                  $(els.children()).height(tallest);
+                }
+                tallest = 0;
+              });
+            }
           };
           
           $.fn[pluginName] = function ( options ) {
