@@ -1,6 +1,6 @@
 /*
  * Author: King County Web Team
- * Date: 2015-05-08 
+ * Date: 2015-05-12 
  * Description: King County JS file
  */
 var addThis = function($) {
@@ -43,17 +43,19 @@ var addThis = function($) {
     addThis.init();
 }(jQuery));
 //Funciton to choose Background on body
+'use strict';
+//TODO: Refactor to remove global variables
 var xsSet = false;
 var lgSet = false;
 function chooseBG(imgMobile, imgDesktop) {
-    if(imgMobile && ($('#nav-xs').css('display') === 'block') && xsSet === false){
-        $('#mobile-bg').attr('src', imgMobile);
-        xsSet = true;
-    }
-    if(imgDesktop && ($('#nav-lg').css('display') === 'block' || ($('#nav-sm').css('display') === 'block')) && lgSet === false){
-        $('body').css('background-image', 'url("' + imgDesktop + '")');
-        lgSet = true;
-    }
+  if(imgMobile && ($('#nav-xs').css('display') === 'block') && xsSet === false){
+    $('#mobile-bg').attr('src', imgMobile);
+    xsSet = true;
+  }
+  if(imgDesktop && ($('#nav-lg').css('display') === 'block' || ($('#nav-sm').css('display') === 'block')) && lgSet === false){
+    $('body').css('background-image', 'url("' + imgDesktop + '")');
+    lgSet = true;
+  }
 }
 $(function () {
     $('[data-kccomponent]').each(function () {

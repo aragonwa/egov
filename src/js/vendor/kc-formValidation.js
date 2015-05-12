@@ -1,6 +1,6 @@
 /*
  * Author: King County Web Team
- * Date: 2015-05-08 
+ * Date: 2015-05-12 
  * Description: King County JS file
  */
 /*!
